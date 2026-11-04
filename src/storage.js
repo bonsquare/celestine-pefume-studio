@@ -1,0 +1,8 @@
+import {openDB} from 'idb';
+import {initial,inferMaterialCategory} from './logic';
+const db=()=>openDB('perfume-studio',1,{upgrade(database){if(!database.objectStoreNames.contains('app'))database.createObjectStore('app')}});
+export function normalizeData(saved){const data={...structuredClone(initial),...saved};data.ingredients=(data.ingredients||[]).map(x=>({...(x.contentQuantity!==undefined?x:{...x,contentQuantity:1,contentUnit:'mL',purchasePrice:x.unitCost??0}),category:x.category||inferMaterialCategory(x.name),supplier:x.supplier||'',make:x.make||''}));data.formulas=(data.formulas||[]).map(f=>({...f,ingredients:(f.ingredients||[]).map(x=>x.materialId?x:{...x,materialId:data.ingredients.find(m=>m.name===x.name)?.id})}));return data}
+export async function loadData(){const d=await db();const saved=await d.get('app','data');return normalizeData(saved||initial)}
+export async function saveData(data){const d=await db();await d.put('app',data,'data')}
+export function exportData(data){const blob=new Blob([JSON.stringify({format:'perfume-studio',version:1,exportedAt:new Date().toISOString(),data},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`perfume-studio-backup-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+export async function importData(file){const parsed=JSON.parse(await file.text());if(parsed.format!=='perfume-studio'||parsed.version!==1||!parsed.data||!Array.isArray(parsed.data.batches))throw Error('This is not a supported Perfume Studio backup.');return normalizeData(parsed.data)}

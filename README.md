@@ -19,4 +19,3 @@ Install dependencies with `pnpm install`, then run `pnpm dev`. Run `pnpm test` a
 Formulas, ingredient and expense libraries, and historical batch snapshots are stored in IndexedDB on the current device. Download a JSON backup from Settings before clearing browser data or switching devices. Restoring a backup replaces current device data after confirmation. Cloud sync is not implemented.
 
 The app shell is available offline after a successful online load and service-worker cache. It is a web app, not a native phone app.
-

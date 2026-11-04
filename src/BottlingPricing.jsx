@@ -1,0 +1,17 @@
+import {money,rateMoney} from './logic';
+
+const NumberField=({label,value,onChange,suffix,placeholder})=><label className="field"><span>{label}</span><span className="input-wrap"><input type="number" inputMode="decimal" min="0" step="any" placeholder={placeholder} value={value} onChange={event=>onChange(event.target.value)}/><em>{suffix}</em></span></label>;
+
+export default function BottlingPricing({form,calc,onUpdate}){
+ const configured=calc.bottleSize>0;
+ return <section className="card bottling-pricing">
+  <div className="bottling-heading"><p className="eyebrow">NEXT STEP</p><h2>Bottling & packaging</h2><p>Choose the size you will sell. Packaging amounts are for one bottle.</p></div>
+  <div className="bottling-inputs"><NumberField label="Bottle size" suffix="mL" placeholder="e.g. 50" value={form.costingBottleSize??''} onChange={value=>onUpdate({costingBottleSize:value})}/><NumberField label="Bottle cost" suffix="₱" value={form.costingBottleCost??calc.bottleCost} onChange={value=>onUpdate({costingBottleCost:value})}/><NumberField label="Other packaging per bottle" suffix="₱" value={form.costingPackagingExtra??calc.packagingExtra} onChange={value=>onUpdate({costingPackagingExtra:value})}/></div>
+  <p className="bottling-note">Other packaging can include the sprayer, cap, label, and box. The content’s additional expenses are entered above.</p>
+  <div className="bottling-math"><div><span>Content per bottle</span><strong>{configured?money(calc.costPerMl*calc.bottleSize):'—'}</strong><small>{configured?`${rateMoney(calc.costPerMl)} × ${calc.bottleSize} mL`:'Enter a bottle size'}</small></div><div><span>Packaging per bottle</span><strong>{money(calc.packagingPerBottle)}</strong><small>Bottle + other packaging</small></div><div className="bottling-math-total"><span>Cost per finished bottle</span><strong>{configured?money(calc.unitBottleCost):'—'}</strong><small>{configured?`${calc.bottles} bottles from this output`:'Enter a bottle size'}</small></div></div>
+  <div className="bottling-heading pricing-heading"><p className="eyebrow">PRICING</p><h2>Reseller & SRP</h2><p>Set a reseller price from your cost, then set the suggested retail price.</p></div>
+  <div className="pricing-inputs"><div className="pricing-method"><span>Reseller pricing method</span><div className="segments" role="group" aria-label="Reseller pricing method"><button type="button" className={form.pricingMethod==='margin'?'':'active'} onClick={()=>onUpdate({pricingMethod:'markup'})}>Markup</button><button type="button" className={form.pricingMethod==='margin'?'active':''} onClick={()=>onUpdate({pricingMethod:'margin'})}>Margin</button></div></div><NumberField label={form.pricingMethod==='margin'?'Reseller margin':'Reseller markup'} suffix="%" value={form.pricingMethod==='margin'?form.margin??50:form.markup??100} onChange={value=>onUpdate({[form.pricingMethod==='margin'?'margin':'markup']:value})}/><NumberField label="SRP markup on reseller price" suffix="%" value={form.srpMarkup??30} onChange={value=>onUpdate({srpMarkup:value})}/></div>
+  {form.pricingMethod==='margin'&&Number(form.margin)>=100&&<p className="warning" role="alert">Margin must be below 100%.</p>}
+  <div className="pricing-results"><div><span>Reseller price</span><strong>{configured?money(calc.resellerPrice):'—'}</strong><small>Per bottle</small></div><div><span>Suggested retail price (SRP)</span><strong>{configured?money(calc.srp):'—'}</strong><small>Per bottle</small></div></div>
+ </section>;
+}
