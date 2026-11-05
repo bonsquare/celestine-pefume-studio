@@ -871,8 +871,6 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 
 /* Christmas theme */
 .dashboard-banner.theme-christmas::before{background:linear-gradient(90deg,rgba(8,16,48,.55) 0%,rgba(8,16,48,.22) 55%,rgba(8,16,48,0) 85%)}
-.banner-festive{position:absolute;top:.75rem;right:.85rem;z-index:2;display:inline-flex;align-items:center;gap:.35rem;margin:0;padding:.25rem .7rem;border-radius:999px;background:#c8233a;color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.03em;box-shadow:0 2px 10px rgba(120,10,25,.45)}
-.theme-christmas .banner-text{margin-top:.5rem}
 .scene-art .flake{animation:snow-fall 8s linear infinite}
 @keyframes snow-fall{from{transform:translateY(-14px)}to{transform:translateY(190px)}}
 .scene-art .bulb-a{animation:bulb-twinkle 1.8s ease-in-out infinite alternate}

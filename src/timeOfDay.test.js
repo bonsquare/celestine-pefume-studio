@@ -1,33 +1,34 @@
 import {describe,expect,it} from 'vitest';
-import {christmasInfo,greetings,sceneFromSearch,themeFromSearch,timeOfDay} from './timeOfDay';
+import {greetings,isChristmasSeason,sceneFromSearch,themeFromSearch,timeOfDay} from './timeOfDay';
 
-describe('christmasInfo',()=>{
+describe('isChristmasSeason',()=>{
   const on=(y,m,d,h=15)=>new Date(y,m-1,d,h,0);
-  it('counts down to Christmas during the season',()=>{
-    expect(christmasInfo(on(2026,11,5))).toEqual({active:true,daysLeft:50,label:'50 days to Christmas'});
-    expect(christmasInfo(on(2026,11,1)).daysLeft).toBe(54);
-    expect(christmasInfo(on(2026,12,1)).daysLeft).toBe(24);
+  it('starts on November 1',()=>{
+    expect(isChristmasSeason(on(2026,10,31,23))).toBe(false);
+    expect(isChristmasSeason(on(2026,11,1,0))).toBe(true);
+    expect(isChristmasSeason(on(2026,11,5))).toBe(true);
   });
-  it('says 1 day on Christmas Eve and Merry Christmas on the day',()=>{
-    expect(christmasInfo(on(2026,12,24)).label).toBe('1 day to Christmas');
-    expect(christmasInfo(on(2026,12,25)).label).toBe('Merry Christmas!');
-    expect(christmasInfo(on(2026,12,25,23)).label).toBe('Merry Christmas!');
+  it('includes Christmas Day and runs through the very end of December 31',()=>{
+    expect(isChristmasSeason(on(2026,12,25))).toBe(true);
+    expect(isChristmasSeason(on(2026,12,31,23))).toBe(true);
   });
-  it('wishes happy holidays after Christmas until January 6, across the new year',()=>{
-    expect(christmasInfo(on(2026,12,26)).label).toBe('Happy holidays');
-    expect(christmasInfo(on(2027,1,3)).label).toBe('Happy holidays');
-    expect(christmasInfo(on(2027,1,6)).active).toBe(true);
+  it('returns to normal on January 1, 2027',()=>{
+    expect(isChristmasSeason(on(2027,1,1,0))).toBe(false);
+    expect(isChristmasSeason(on(2027,1,1,12))).toBe(false);
+    expect(isChristmasSeason(on(2027,1,6))).toBe(false);
   });
-  it('is off outside the season',()=>{
-    expect(christmasInfo(on(2026,10,31))).toEqual({active:false,daysLeft:null,label:''});
-    expect(christmasInfo(on(2027,1,7)).active).toBe(false);
-    expect(christmasInfo(on(2026,6,15)).active).toBe(false);
+  it('is off for the rest of the year, and returns each November',()=>{
+    expect(isChristmasSeason(on(2026,6,15))).toBe(false);
+    expect(isChristmasSeason(on(2027,10,31))).toBe(false);
+    expect(isChristmasSeason(on(2027,11,1))).toBe(true);
   });
 });
 
 describe('themeFromSearch',()=>{
   it('uses the calendar by default',()=>{
     expect(themeFromSearch('',new Date(2026,10,5))).toBe('christmas');
+    expect(themeFromSearch('',new Date(2026,11,31,23,59))).toBe('christmas');
+    expect(themeFromSearch('',new Date(2027,0,1,0,0))).toBe('normal');
     expect(themeFromSearch('',new Date(2026,5,5))).toBe('normal');
   });
   it('can be previewed or switched off from the link',()=>{

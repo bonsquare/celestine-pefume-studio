@@ -1,8 +1,8 @@
 import {useEffect,useState} from 'react';
-import {Moon,Snowflake,Sun,Sunrise} from 'lucide-react';
+import {Moon,Sun,Sunrise} from 'lucide-react';
 import {attentionCount} from './overview';
 import {christmasScenes} from './ChristmasScenes';
-import {christmasInfo,greetings,sceneFromSearch,themeFromSearch} from './timeOfDay';
+import {greetings,sceneFromSearch,themeFromSearch} from './timeOfDay';
 
 const icons={morning:Sunrise,afternoon:Sun,evening:Moon};
 const plural=(count,one,many)=>`${count} ${count===1?one:many}`;
@@ -67,8 +67,6 @@ export default function DashboardBanner({name,alerts,onGo}){
   const [now,setNow]=useState(()=>new Date());
   useEffect(()=>{const timer=setInterval(()=>setNow(new Date()),60000);return()=>clearInterval(timer)},[]);
   const scene=sceneFromSearch(location.search,now),theme=themeFromSearch(location.search,now),christmas=theme==='christmas';
-  // Preview links (?theme=christmas) show the countdown as if it were the season.
-  const festive=christmasInfo(now).active?christmasInfo(now):{label:'Merry Christmas'};
   const Icon=icons[scene];
   const items=[
     {key:'low',count:alerts.lowStock,text:plural(alerts.lowStock,'low-stock item','low-stock items'),page:'Inventory of Raw Materials'},
@@ -79,7 +77,6 @@ export default function DashboardBanner({name,alerts,onGo}){
   const showChips=attentionCount(alerts)>0||alerts.inProgress>0;
   return <section className={`dashboard-banner scene-${scene}${christmas?' theme-christmas':''}`} aria-label={`${greetings[scene]}, ${name||'welcome'}`}>
     {(christmas?christmasScenes:scenes)[scene]}
-    {christmas&&<p className="banner-festive"><Snowflake size={14} aria-hidden="true"/> {festive.label}</p>}
     <div className="banner-text">
       <p className="banner-greeting"><Icon size={18} aria-hidden="true"/> {greetings[scene]}</p>
       <h2 className="banner-name">{name||'Celestine Studio'}</h2>
