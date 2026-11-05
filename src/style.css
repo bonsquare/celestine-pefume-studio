@@ -675,3 +675,8 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .pricing-notice.ok{background:#e6f7ee;border:1px solid #bfe6d1;color:#136b3f}
 .pricing-notice.error{background:#fff1ee;border:1px solid #f3cfc5;color:#a12a2a}
 .pricing-notice button{border:0;background:none;color:#2544bd;font:inherit;font-weight:700;text-decoration:underline;cursor:pointer;padding:0}
+
+/* Save Price sits at the bottom of the Price step */
+.pricing-save-bar{display:grid;gap:.5rem;margin:.9rem 16px 1rem}
+.pricing-save-bar .save-price{width:100%;justify-content:center;min-height:40px}
+.pricing-save-bar .pricing-notice{margin:0}
