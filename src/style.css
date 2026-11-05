@@ -524,3 +524,8 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   .print-area .formula-summary-banner *{color:#111!important;text-shadow:none!important;background-image:none!important}
   .print-area .formula-summary-identity>span,.print-area .formula-summary-concentration{background:#f1f1f1!important;border-color:#bbb!important}
 }
+
+/* Dashboard: current formula overview */
+.dashboard-formula-stats.overview-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+.overview-note{margin:.8rem 0 0;font-size:.74rem;line-height:1.5;color:#61708b}
+@media(min-width:720px){.dashboard-formula-stats.overview-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
