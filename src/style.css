@@ -715,3 +715,13 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 
 /* Formula card: measured by ML or GRAMS */
 .formula-unit-badge{display:inline-block;margin-left:5px;padding:2px 9px;border-radius:999px;font-size:.66rem;font-weight:800;letter-spacing:.03em;vertical-align:middle;background:#eef1f9;color:#46526f}
+
+/* Dashboard current-formula card: even stats grid and a disclosure for the explanation */
+#root .overview-stats .stat,#root .overview-stats .stat:last-child{grid-column:auto;border:0;padding:0}
+.overview-disclosure{margin-top:.6rem;border-top:1px solid #e3e9f6;padding-top:.5rem}
+.overview-disclosure summary{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:.2rem .65rem;border:1px solid #d6dff0;border-radius:999px;background:#f6f8ff;color:#3457d5;font-size:.74rem;font-weight:750;cursor:pointer;list-style:none;user-select:none}
+.overview-disclosure summary::-webkit-details-marker{display:none}
+.overview-disclosure summary::after{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+.overview-disclosure[open] summary::after{transform:rotate(-135deg) translateY(-1px)}
+.overview-disclosure summary:focus-visible{outline:2px solid #3457d5;outline-offset:2px}
+.overview-disclosure .overview-note{margin:.5rem 0 0}
