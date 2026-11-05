@@ -1,6 +1,8 @@
-import {uid,num,materialUnit,materialRate} from './logic';
+import {uid,num,materialUnit,materialRate,materialCategories} from './logic';
 
 export const supplyCategories=['Bottle','Sticker / Label','Box','Cap / Sprayer','Other'];
+// Order of the sub-headings inside the Liquid and Non-liquid sections.
+export const subgroupOrder=[...materialCategories.filter(c=>c!=='Other'),'Other materials',...supplyCategories.filter(c=>c!=='Other'),'Other supplies'];
 export const maxStockLog=500;
 
 const round=(value,places=6)=>Math.round(num(value)*10**places)/10**places;
@@ -10,8 +12,8 @@ export const isLow=item=>num(item.stockQuantity)<=num(item.reorderLevel);
 
 // One flat list of everything in stock: raw materials plus bottles, stickers and other supplies.
 export function stockRows(data){
-  const materials=(data.ingredients||[]).map(item=>({kind:'material',id:item.id,name:item.name,group:'Raw materials',category:item.category||'Other',detail:[item.make,item.supplier].filter(Boolean).join(' · ')||item.category||'',unit:materialUnit(item),stock:num(item.stockQuantity),reorder:num(item.reorderLevel),value:num(item.stockQuantity)*materialRate(item),low:isLow(item),item}));
-  const supplies=(data.supplies||[]).map(item=>({kind:'supply',id:item.id,name:item.name,group:'Bottles & supplies',category:item.category||'Other',detail:item.category||'Other',unit:'PCS',stock:num(item.stockQuantity),reorder:num(item.reorderLevel),value:num(item.stockQuantity)*num(item.unitCost),low:isLow(item),item}));
+  const materials=(data.ingredients||[]).map(item=>({kind:'material',id:item.id,name:item.name,group:materialUnit(item)==='mL'?'liquid':'solid',subgroup:item.category&&item.category!=='Other'?item.category:'Other materials',category:item.category||'Other',detail:[item.make,item.supplier].filter(Boolean).join(' · ')||item.category||'',unit:materialUnit(item),stock:num(item.stockQuantity),reorder:num(item.reorderLevel),value:num(item.stockQuantity)*materialRate(item),low:isLow(item),item}));
+  const supplies=(data.supplies||[]).map(item=>({kind:'supply',id:item.id,name:item.name,group:'solid',subgroup:item.category&&item.category!=='Other'?item.category:'Other supplies',category:item.category||'Other',detail:item.category||'Other',unit:'PCS',stock:num(item.stockQuantity),reorder:num(item.reorderLevel),value:num(item.stockQuantity)*num(item.unitCost),low:isLow(item),item}));
   return [...materials,...supplies];
 }
 
@@ -66,5 +68,7 @@ export function deductSuppliesForBatch(data,bottles,note='',now){
   }
   return {data:next,short};
 }
+
+export const stockForm=row=>row.group==='liquid'?'Liquid':'Non-liquid';
 
 export const stockSummary=rows=>({items:rows.length,low:rows.filter(row=>row.low).length,value:rows.reduce((sum,row)=>sum+row.value,0)});

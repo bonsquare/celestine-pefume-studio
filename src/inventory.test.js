@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {addStock,addSupply,deductSuppliesForBatch,removeSupply,setStockCount,stockDiffEntries,stockRows,stockSummary,updateSupply} from './inventory';
+import {addStock,addSupply,deductSuppliesForBatch,removeSupply,setStockCount,stockDiffEntries,stockForm,stockRows,stockSummary,subgroupOrder,updateSupply} from './inventory';
 
 const base=()=>({
   ingredients:[{id:'m1',name:'Cloud',category:'Fragrance Oil',make:'Argeville',supplier:'Shop',contentQuantity:100,contentUnit:'mL',purchasePrice:250,stockQuantity:40,reorderLevel:20}],
@@ -84,6 +84,30 @@ describe('batch usage',()=>{
     expect(entries).toHaveLength(1);
     expect(entries[0]).toMatchObject({change:-10,balance:30,reason:'Batch',note:'B-1'});
     expect(stockDiffEntries(before,before,'material','Batch')).toEqual([]);
+  });
+});
+
+describe('liquid and non-liquid grouping',()=>{
+  it('puts mL materials under liquid, and gram materials and supplies under non-liquid',()=>{
+    let data={...base(),ingredients:[...base().ingredients,{id:'m2',name:'Ambroxan',category:'Fixative',contentQuantity:100,contentUnit:'g',purchasePrice:500,stockQuantity:50,reorderLevel:10},{id:'m3',name:'Mystery',category:'Other',contentQuantity:10,contentUnit:'mL',purchasePrice:10,stockQuantity:5,reorderLevel:1}]};
+    data=addSupply(data,{name:'Label',category:'Sticker / Label'},10,NOW);
+    data=addSupply(data,{name:'Tape',category:'Other'},10,NOW);
+    const bySub=Object.fromEntries(stockRows(data).map(r=>[r.name,[r.group,r.subgroup]]));
+    expect(bySub.Cloud).toEqual(['liquid','Fragrance Oil']);
+    expect(bySub.Ambroxan).toEqual(['solid','Fixative']);
+    expect(bySub.Mystery).toEqual(['liquid','Other materials']);
+    expect(bySub.Label).toEqual(['solid','Sticker / Label']);
+    expect(bySub.Tape).toEqual(['solid','Other supplies']);
+  });
+  it('lists every sub-heading exactly once, materials before supplies',()=>{
+    expect(new Set(subgroupOrder).size).toBe(subgroupOrder.length);
+    expect(subgroupOrder.indexOf('Fragrance Oil')).toBeLessThan(subgroupOrder.indexOf('Bottle'));
+    expect(subgroupOrder).toContain('Other materials');
+    expect(subgroupOrder).toContain('Other supplies');
+  });
+  it('labels the stock form for exports',()=>{
+    expect(stockForm({group:'liquid'})).toBe('Liquid');
+    expect(stockForm({group:'solid'})).toBe('Non-liquid');
   });
 });
 
