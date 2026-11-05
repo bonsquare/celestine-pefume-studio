@@ -60,6 +60,46 @@ html[data-theme="plum"]{
   --t-c-total:#544e7c;--t-c-mac:#6a5670;--t-c-mat:#4a5a86;--t-c-ready:#3f6a68;--t-c-hold:#7a5576;
 }
 
+html[data-theme="sky"]{
+  --t-page:linear-gradient(170deg,#d6ecff 0%,#eaf5ff 50%,#f7fbff 100%);
+  --t-card:#ffffff;--t-card-a:#ffffffe6;--t-glass:#ffffffd9;
+  --t-ink:#14365a;--t-ink2:#1d4d80;--t-ink3:#46698f;--t-muted:#6f8fb2;
+  --t-brand:#2f9bf0;--t-brand2:#7cc6ff;
+  --t-btn:linear-gradient(135deg,#4db0ff,#1f7fe0);--t-btn-ink:#ffffff;
+  --t-soft:#f4faff;--t-tint:#e3f1fd;--t-line:#d3e6f7;--t-line2:#b2d3ef;
+  --t-chip:#2f9bf0;--t-chip-ink:#ffffff;
+  --t-c-total:#e3f1fd;--t-c-mac:#fff1e3;--t-c-mat:#dff0ff;--t-c-ready:#e1f7ee;--t-c-hold:#ffe9ee;
+}
+html[data-theme="violet"]{
+  --t-page:linear-gradient(160deg,#4338b8 0%,#5b4fd6 50%,#7a63e6 100%);
+  --t-card:#6a5ee6;--t-card-a:#6a5ee6e6;--t-glass:#5a4ed4ee;
+  --t-ink:#ffffff;--t-ink2:#f1eeff;--t-ink3:#d9d3ff;--t-muted:#bdb4f7;
+  --t-brand:#e254f5;--t-brand2:#f59cff;
+  --t-btn:linear-gradient(135deg,#d230f0,#7c4dff);--t-btn-ink:#ffffff;
+  --t-soft:#5f53dc;--t-tint:#7a6ef0;--t-line:#8478f2;--t-line2:#9f95f7;
+  --t-chip:#e254f5;--t-chip-ink:#ffffff;
+  --t-c-total:#7367ee;--t-c-mac:#a463d4;--t-c-mat:#5a7fe6;--t-c-ready:#4a9bd0;--t-c-hold:#c653c4;
+}
+html[data-theme="night"]{
+  --t-page:linear-gradient(170deg,#090a12 0%,#0f1120 60%,#13152a 100%);
+  --t-card:#161a2c;--t-card-a:#161a2cee;--t-glass:#0f1220ee;
+  --t-ink:#f1f2fb;--t-ink2:#dcdffa;--t-ink3:#a9aed0;--t-muted:#868cb3;
+  --t-brand:#8b6cf5;--t-brand2:#b79cff;
+  --t-btn:linear-gradient(135deg,#7c5cf0,#5b8cff);--t-btn-ink:#ffffff;
+  --t-soft:#11142a;--t-tint:#1e2340;--t-line:#252b4a;--t-line2:#383f66;
+  --t-chip:#8b6cf5;--t-chip-ink:#ffffff;
+  --t-c-total:#1f2442;--t-c-mac:#3a2230;--t-c-mat:#1a2c52;--t-c-ready:#14372f;--t-c-hold:#40203a;
+}
+html[data-theme="lavender"]{
+  --t-page:linear-gradient(165deg,#efe9ff 0%,#f7efff 50%,#ffeff0 100%);
+  --t-card:#ffffff;--t-card-a:#ffffffe6;--t-glass:#ffffffd9;
+  --t-ink:#3b3270;--t-ink2:#4a3f85;--t-ink3:#6a5fa0;--t-muted:#8a80b8;
+  --t-brand:#a898f0;--t-brand2:#c9bdf8;
+  --t-btn:linear-gradient(135deg,#b3a4f4,#8f7de6);--t-btn-ink:#ffffff;
+  --t-soft:#faf7ff;--t-tint:#ece6ff;--t-line:#e4dcfa;--t-line2:#cbbff2;
+  --t-chip:#a898f0;--t-chip-ink:#ffffff;
+  --t-c-total:#ece6ff;--t-c-mac:#ffe6e1;--t-c-mat:#e3e6ff;--t-c-ready:#e2f6ee;--t-c-hold:#ffdfe6;
+}
 /* Page and surfaces */
 body{background:var(--t-page) fixed!important;color:var(--t-ink)}
 :root{background:var(--t-soft)}
@@ -96,13 +136,13 @@ body{background:var(--t-page) fixed!important;color:var(--t-ink)}
 #root .bottom-nav button{color:var(--t-ink3)}#root .bottom-nav button.active,#root .bottom-nav button[aria-current=page]{background:var(--t-tint);color:var(--t-ink)}
 
 /* Dark themes: keep the soft status boxes readable by restoring the light palette inside them */
-html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"]) :is(.user-settings-notice,.saved-formula-name>span,.backup-status,.backup-message,.access-badge.approved,.dashboard-metric-icon,.content-cost-summary,.remove-cost-row,.pricing-overview>div,.pricing-warnings p,.offline-pill,.sheet-link-icon,.kpis .stat,.material-rate,.costing-raw-cost,.cost-per-ml-answer,.material-feedback,.inventory-alert,.material-stock,.status-completed,.status-cancelled,.status-maturing,.status-maceration,.material-preview,.formula-result-hero>div,.formula-summary-highlights>div,.formula-summary-quantity-note,.cost-sheet-result,.bottling-math-total,.login-page,.formula-status,.inventory-stats .warn,.stock-row.low,.stat-icon,.inventory-stat.warn,.combobox-avatar,.top-rank,.costing-steps li.todo,.margin-badge,.profit-tile,.tier-warn,.pricing-notice,.perfume-total.primary,.structure-note,.install-status.ok,.save-status,.history-note,.record-tag,.banner-chip,.timeline-phase.is-ready,.stage-done-btn,.aging-pill,.bf-problems,.bd-notes){
+html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"],[data-theme="violet"],[data-theme="night"]) :is(.user-settings-notice,.saved-formula-name>span,.backup-status,.backup-message,.access-badge.approved,.dashboard-metric-icon,.content-cost-summary,.remove-cost-row,.pricing-overview>div,.pricing-warnings p,.offline-pill,.sheet-link-icon,.kpis .stat,.material-rate,.costing-raw-cost,.cost-per-ml-answer,.material-feedback,.inventory-alert,.material-stock,.status-completed,.status-cancelled,.status-maturing,.status-maceration,.material-preview,.formula-result-hero>div,.formula-summary-highlights>div,.formula-summary-quantity-note,.cost-sheet-result,.bottling-math-total,.login-page,.formula-status,.inventory-stats .warn,.stock-row.low,.stat-icon,.inventory-stat.warn,.combobox-avatar,.top-rank,.costing-steps li.todo,.margin-badge,.profit-tile,.tier-warn,.pricing-notice,.perfume-total.primary,.structure-note,.install-status.ok,.save-status,.history-note,.record-tag,.banner-chip,.timeline-phase.is-ready,.stage-done-btn,.aging-pill,.bf-problems,.bd-notes){
   --t-ink:#2f2d58;--t-ink2:#4d4a96;--t-ink3:#6a6690;--t-muted:#76729a;--t-brand:#8b93f2;--t-brand2:#b69af2;
   --t-card:#ffffff;--t-soft:#fbf8ff;--t-tint:#efeaff;--t-line:#e8e2f5;--t-line2:#cfc8f0;
   color:#2f2d58;
 }
-html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"]) .formula-library-hero{background:var(--t-tint)}
-html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"]) .sheet-link-icon{color:#4d4a96}
+html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"],[data-theme="violet"],[data-theme="night"]) .formula-library-hero{background:var(--t-tint)}
+html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"],[data-theme="violet"],[data-theme="night"]) .sheet-link-icon{color:#4d4a96}
 
 /* Theme picker as a list */
 #root .theme-list{display:grid;gap:0;margin-top:10px;border:1px solid var(--t-line);border-radius:14px;overflow:hidden}
@@ -141,3 +181,5 @@ html #root .library-chips .status-chips button small{min-width:0;padding:0;backg
 html #root .library-chips .status-chips button.active{background:var(--t-card);border-color:var(--t-brand);color:var(--t-ink);box-shadow:0 0 0 2px var(--t-tint)}
 html #root .library-chips .status-chips button.active small{background:transparent;color:var(--t-ink)}
 html #root .library-chips .status-chips button:not(.active):hover{border-color:var(--t-line2)}
+
+html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"],[data-theme="violet"],[data-theme="night"]) #root :is(.bc-ready,.bc-hold,.bc-mac,.bc-mat) strong{color:var(--t-ink)}

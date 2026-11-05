@@ -5,7 +5,11 @@ export const themes=[
   {id:'dusk',name:'Dusk Sky',note:'Twilight blue with a sunset glow',dark:true,swatch:['#173a5e','#f5b942','#ff7f7f','#4a4a82'],bar:'#173a5e'},
   {id:'aurora',name:'Aurora Pop',note:'Vivid teal, violet and coral',dark:true,swatch:['#3a3f9c','#2ee6d0','#ff7aa8','#b45cf0'],bar:'#3a3f9c'},
   {id:'grove',name:'Emerald Grove',note:'Sage and deep green with gold',dark:false,swatch:['#0c3b2e','#6d9773','#b46617','#ffba00'],bar:'#0c3b2e'},
-  {id:'plum',name:'Plum and Sand',note:'Deep plum with sand and salmon',dark:true,swatch:['#312c51','#48426d','#f0c38e','#f1aa9b'],bar:'#312c51'}
+  {id:'plum',name:'Plum and Sand',note:'Deep plum with sand and salmon',dark:true,swatch:['#312c51','#48426d','#f0c38e','#f1aa9b'],bar:'#312c51'},
+  {id:'sky',name:'Sky Glass',note:'Airy white with bright azure blue',dark:false,swatch:['#e3f2ff','#2f9bf0','#7cc6ff','#14365a'],bar:'#e3f2ff'},
+  {id:'violet',name:'Violet Glow',note:'Rich violet with a magenta spark',dark:true,swatch:['#4b3fc0','#7a6df0','#e254f5','#c3b8ff'],bar:'#4b3fc0'},
+  {id:'night',name:'Night Pulse',note:'Near-black with violet, coral and mint',dark:true,swatch:['#0b0c14','#8b6cf5','#ff6f7f','#2fd6a0'],bar:'#0b0c14'},
+  {id:'lavender',name:'Lavender Peach',note:'Soft lavender with peach and rose',dark:false,swatch:['#f3efff','#a898f0','#ffb3b0','#3b3270'],bar:'#f3efff'}
 ];
 export const themeKey='celestine-theme';
 export const defaultTheme='pastel';
