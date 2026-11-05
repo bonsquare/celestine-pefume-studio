@@ -1,0 +1,25 @@
+export const formatDay=iso=>{if(!iso)return '—';const date=new Date(`${iso}T00:00:00`);return Number.isNaN(date.getTime())?iso:date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})};
+export const statusClass=status=>`aging-${String(status).toLowerCase().replaceAll(' ','-')}`;
+const days=count=>`${count} day${count===1?'':'s'}`;
+
+function Bar({label,stage}){
+  const note=stage.state==='Completed'?(stage.completedOn?`Completed ${formatDay(stage.completedOn)}`:'Completed'):stage.state==='Not set'?'Not set':stage.state==='Scheduled'?`Starts ${formatDay(stage.start)}`:`${days(stage.daysLeft)} left`;
+  return <div className={`ab-stage ab-${stage.state.toLowerCase().replaceAll(' ','-')}`}>
+    <div className="ab-stage-head"><strong>{label}</strong><span>{stage.percent}%</span></div>
+    <div className="timeline-bar"><i style={{width:`${stage.percent}%`}}/></div>
+    <div className="ab-stage-meta"><small>{stage.state==='Completed'?note:`${stage.state} · ${note}`}</small><small>{formatDay(stage.start)} → {formatDay(stage.end)}</small></div>
+  </div>;
+}
+
+// Maceration, maturation and overall aging. Every number comes from the dates, so nothing here is stored.
+export default function AgingBars({view,compact=false}){
+  return <div className={`aging-bars${compact?' is-compact':''}`}>
+    <Bar label="Maceration" stage={view.maceration}/>
+    <Bar label="Maturation" stage={view.maturation}/>
+    <div className="ab-stage ab-overall">
+      <div className="ab-stage-head"><strong>Overall aging</strong><span>{view.overall.percent}%</span></div>
+      <div className="timeline-bar"><i style={{width:`${view.overall.percent}%`}}/></div>
+      <div className="ab-stage-meta"><small>Stage: {view.overall.stage}</small><small>Ready {formatDay(view.overall.expectedReadyDate)}</small></div>
+    </div>
+  </div>;
+}

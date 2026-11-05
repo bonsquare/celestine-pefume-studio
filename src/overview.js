@@ -24,8 +24,8 @@ export function dashboardAlerts(data,now=new Date()){
   return {
     formulas:formulas.length,
     lowStock:data?stockRows(data).filter(row=>row.low).length:0,
-    ready:batches.filter(batch=>batch.status==='Maturing'&&batch.maturationDate&&batch.maturationDate<=today).length,
-    inProgress:batches.filter(batch=>activeStatuses.includes(batch.status)).length,
+    ready:batches.filter(batch=>!batch.archived&&!batch.onHold&&['Maturing','Bottling'].includes(batch.status)&&batch.maturationDate&&batch.maturationDate<=today).length,
+    inProgress:batches.filter(batch=>!batch.archived&&activeStatuses.includes(batch.status)).length,
     needBottle,
     unsavedPrice
   };
