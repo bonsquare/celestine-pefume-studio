@@ -770,3 +770,11 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .perfume-total.primary{background:#eaf8f1;border-color:#bfe6d1}
 .perfume-total.primary strong{font-size:1.15rem;color:#136b3f}
 @media(max-width:480px){.perfume-totals{grid-template-columns:1fr 1fr}.perfume-total.primary{grid-column:1/-1}}
+
+/* Costing step 1 totals: small, always one row */
+.perfume-totals{grid-template-columns:1.25fr 1fr .9fr;gap:.4rem;padding:.55rem 16px .8rem}
+.perfume-total{padding:.45rem .55rem;border-radius:12px;gap:1px}
+.perfume-total span{font-size:.56rem;letter-spacing:.05em;line-height:1.25}
+.perfume-total strong{font-size:.88rem;white-space:nowrap}
+.perfume-total.primary strong{font-size:.98rem}
+@media(max-width:480px){.perfume-totals{grid-template-columns:1.25fr 1fr .9fr}.perfume-total.primary{grid-column:auto}}
