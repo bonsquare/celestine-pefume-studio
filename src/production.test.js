@@ -28,3 +28,27 @@ describe('marking a stage done',()=>{
   const c=batchTimeline({...b,maturationDoneOn:'2026-11-20'},'2026-11-21');expect(c.ready).toBe(true);expect(c.detail).toBe('since 2026-11-20');
  });
 });
+
+import {autoProgressBatch,autoProgressBatches,markStageDone,nextBatchNumber,undoStage} from './production';
+describe('auto progress and batch IDs',()=>{
+ const base={status:'Planned',date:'2026-11-05',macerationDate:'2026-11-19',maturationDate:'2026-12-05'};
+ it('marks maceration done and moves to Maturing when its date arrives',()=>{
+  const a=autoProgressBatch(base,'2026-11-19');expect(a.macerationDoneOn).toBe('2026-11-19');expect(a.status).toBe('Maturing');expect(a.maturationDoneOn).toBeUndefined();
+ });
+ it('marks maturation done and moves to Bottling when ready',()=>{
+  const a=autoProgressBatch(base,'2026-12-06');expect(a.maturationDoneOn).toBe('2026-12-05');expect(a.status).toBe('Bottling');
+ });
+ it('does nothing before the dates, for finished batches, or after Undo',()=>{
+  expect(autoProgressBatch(base,'2026-11-10')).toBe(base);
+  const done={...base,status:'Completed'};expect(autoProgressBatch(done,'2027-01-01')).toBe(done);
+  const undone=undoStage(markStageDone(base,'maceration','2026-11-19'),'maceration');expect(autoProgressBatch(undone,'2026-11-25').macerationDoneOn).toBe('');
+ });
+ it('never moves a status backward and returns the same list when nothing changed',()=>{
+  expect(autoProgressBatch({...base,status:'Bottling'},'2026-11-19').status).toBe('Bottling');
+  const list=[base];expect(autoProgressBatches(list,'2026-11-10')).toBe(list);expect(autoProgressBatches(list,'2026-11-19')).not.toBe(list);
+ });
+ it('gives every batch a unique ID even after a delete',()=>{
+  const list=[{batchNumber:'B-20261105-001'},{batchNumber:'B-20261105-003'}];
+  expect(nextBatchNumber(list,'2026-11-05')).toBe('B-20261105-004');expect(nextBatchNumber(list,'2026-11-06')).toBe('B-20261106-001');
+ });
+});

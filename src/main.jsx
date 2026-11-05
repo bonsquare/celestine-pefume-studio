@@ -7,6 +7,7 @@ import{loadData,saveData,supabaseConfigured}from'./storage';
 import {dashboardAlerts,formulaOverview,latestFormula,topFormulas} from './overview';
 import DashboardBanner from './DashboardBanner';
 import BatchTracker from './BatchTracker';
+import {autoProgressBatches} from './production';
 import TopFormulas from './TopFormulas';
 import FormulaOverviewList from './FormulaOverviewList';
 import MoreSheet from './MoreSheet';
@@ -45,6 +46,9 @@ function App({user,isMaster=false}){const[data,setData]=useState(null),[page,set
  useEffect(()=>{try{if(selected)localStorage.setItem(selectedFormulaKey,selected)}catch{}},[selected]);
  // An app shortcut opens /?page=Costing. Tidy the address bar once the page is chosen.
  useEffect(()=>{if(location.search.includes('page='))history.replaceState(null,'',location.pathname)},[]);
+ // Maceration and maturation are marked done on their own when their dates arrive, and the batch status moves forward.
+ const loaded=Boolean(data);
+ useEffect(()=>{if(!loaded)return;const run=()=>setData(d=>{const next=autoProgressBatches(d.batches||[]);return next===d.batches?d:{...d,batches:next}});run();const timer=setInterval(run,60000);return()=>clearInterval(timer)},[loaded]);
  useEffect(()=>{if(!data)return;const timer=setTimeout(()=>saveData(data).catch(error=>setNotice(error.message||'Could not save changes.')),500);return()=>clearTimeout(timer)},[data]);
  const edit=(key,value)=>setData(d=>({...d,[key]:value}));const form=data?.formulas.find(x=>x.id===selected)||latestFormula(data?.formulas)||newFormula();const calc=useMemo(()=>data?calculate(form,data):null,[form,data]);const overview=useMemo(()=>calc?formulaOverview(form,calc):null,[form,calc]);const topRows=useMemo(()=>topFormulas(data),[data]);const alerts=useMemo(()=>data?dashboardAlerts(data):null,[data]);
  const updateForm=patch=>{setSelected(form.id);setData(d=>({...d,formulas:d.formulas.some(x=>x.id===form.id)?d.formulas.map(x=>x.id===form.id?{...x,...patch,updatedAt:new Date().toISOString()}:x):[...d.formulas,{...form,...patch}]}))};

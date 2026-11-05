@@ -26,6 +26,37 @@ export function batchTimeline(batch,today=localDate()){
   else if(matEnd){phase='Maturing';detail=`${maturation.daysLeft} day${maturation.daysLeft===1?'':'s'} left`}
   return {maceration,maturation,phase,detail,ready:maturation.state==='done'};
 }
+// A stage finishing moves the batch status forward (never backward, and never touches Completed or Cancelled).
+const statusRank={Planned:0,Mixing:1,Maturing:2,Bottling:3};
+const moveStatus=(batch,target)=>{const status=batch.status||'Planned';return status in statusRank&&statusRank[status]<statusRank[target]?target:status};
+export function markStageDone(batch,key,date=localDate()){
+  const next={...batch,[`${key}DoneOn`]:date};
+  next.status=moveStatus(batch,key==='maturation'?'Bottling':'Maturing');
+  if(key==='maturation'&&!next.macerationDoneOn&&next.macerationDoneOn!=='')next.macerationDoneOn=next.macerationDate||date;
+  return next;
+}
+export const undoStage=(batch,key)=>({...batch,[`${key}DoneOn`]:''});
+// Stages whose date has arrived are marked done on their own. A stage you Undo (empty, not missing) stays open.
+export function autoProgressBatch(batch,today=localDate()){
+  let next=batch;
+  for(const [key,field] of [['maceration','macerationDate'],['maturation','maturationDate']]){
+    const end=next[field];
+    if(next.status==='Completed'||next.status==='Cancelled')break;
+    if(next[`${key}DoneOn`]===undefined&&end&&end<=today)next=markStageDone(next,key,end);
+  }
+  return next;
+}
+export function autoProgressBatches(batches,today=localDate()){
+  let changed=false;
+  const next=batches.map(batch=>{const result=autoProgressBatch(batch,today);if(result!==batch)changed=true;return result});
+  return changed?next:batches;
+}
+// The next free batch number for a day, so a deleted number is never reused by mistake and no ID repeats.
+export function nextBatchNumber(batches,today=localDate()){
+  const prefix=`B-${today.replaceAll('-','')}-`;
+  const highest=batches.reduce((max,batch)=>String(batch.batchNumber||'').startsWith(prefix)?Math.max(max,parseInt(String(batch.batchNumber).slice(prefix.length),10)||0):max,0);
+  return `${prefix}${String(highest+1).padStart(3,'0')}`;
+}
 // Raw material cost of one bottle: the materials in the formula only (no labor, overhead, or packaging).
 export function rawMaterialPerBottle(batch){
   const calc=batch.calculation||{},volume=num(calc.volume),size=num(calc.bottleSize);

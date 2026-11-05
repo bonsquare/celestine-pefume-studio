@@ -919,3 +919,8 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root .batch-delete-confirm{display:flex;align-items:center;gap:6px;margin-left:auto}
 #root .batch-delete-confirm small{font-size:12px;color:#6b7194}
 #root .batch-delete-confirm .danger{background:#e5484d;border-color:#e5484d;color:#fff}
+
+#root .production-record-head b{font-weight:700;color:#2f3a8f}
+#root .batch-save{height:30px;font-size:13px;margin-left:auto}
+#root .batch-save:disabled{opacity:.6;cursor:default}
+#root .production-record-foot{gap:8px}
