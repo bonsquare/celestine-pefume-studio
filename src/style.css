@@ -1039,3 +1039,8 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root .bc-filters select{height:32px;min-height:32px;padding:0 26px 0 10px;font-size:12.5px;border-radius:9px}
 #root .bc-filters .bc-search{height:34px}
 #root .bc-search input{height:32px;font-size:13px}
+
+/* Batches: separators between counters, filters and list */
+#root .production-batches .bc-counters{padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #e3e6f3}
+#root .production-batches .bc-filters{padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #e3e6f3}
+#root .production-batches .card-head{padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #e3e6f3}
