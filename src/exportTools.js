@@ -1,4 +1,5 @@
 import {num,materialUnit,materialRate,unitLabel} from './logic';
+import {stockRows} from './inventory';
 
 // Quote a value for CSV. Also neutralises spreadsheet formulas (=, +, -, @) so opened files cannot run them.
 export const csvCell=value=>{
@@ -27,6 +28,11 @@ export const formulasCsv=data=>toCsv(
     const material=(data.ingredients||[]).find(item=>item.id===row.materialId);
     return [formula.name,formula.scentName,formula.inspiredBy,material?.name||row.name,num(row.percentage),formula.updatedAt?String(formula.updatedAt).slice(0,10):''];
   }))
+);
+
+export const inventoryCsv=data=>toCsv(
+  ['Type','Name','Category','Details','Stock on hand','Unit','Low-stock level','Status','Stock value'],
+  stockRows(data).map(row=>[row.kind==='material'?'Raw material':'Supply',row.name,row.category,row.detail,round(row.stock,4),unitLabel(row.unit),round(row.reorder,4),row.low?'Low stock':'In stock',round(row.value)])
 );
 
 export const todayStamp=()=>new Date().toISOString().slice(0,10);

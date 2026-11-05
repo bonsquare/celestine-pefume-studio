@@ -377,3 +377,54 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 /* Raw material form sections */
 .material-form-heading{grid-column:1/-1;margin:.7rem 0 0;padding-top:.9rem;border-top:1px solid #dfe6f3;font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#6a77a0}
 .material-dialog-fields>.material-form-heading:first-child{margin-top:0;padding-top:0;border-top:0}
+
+/* Inventory page */
+.inventory-card{display:grid;gap:14px}
+.inventory-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}
+.inventory-stats>div{padding:.7rem .8rem;border:1px solid #dfe6f3;border-radius:14px;background:#f8faff;display:grid;gap:2px}
+.inventory-stats span{font-size:.64rem;font-weight:750;text-transform:uppercase;letter-spacing:.06em;color:#7a859c}
+.inventory-stats strong{font-size:1.05rem;color:#293b75}
+.inventory-stats .warn{background:#fff4f1;border-color:#f3cfc5}
+.inventory-stats .warn strong{color:#b2381d}
+.inventory-tools{display:grid;gap:.65rem}
+.inventory-tools .tool-search{display:flex;flex-direction:column;gap:.25rem;color:#65728b;font-size:.62rem;font-weight:700}
+.inventory-tools .tool-search input{min-height:36px;padding:.4rem .6rem;font-size:.78rem;border-radius:9px;width:100%;box-sizing:border-box}
+.inventory-chips{grid-template-columns:repeat(4,minmax(0,1fr))}
+.inventory-group{display:grid;gap:8px}
+.inventory-group-title{display:flex;align-items:center;gap:8px;margin:.4rem 0 0;font-size:.72rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#6a77a0}
+.inventory-group-title small{padding:1px 8px;border-radius:999px;background:#eef1f9;font-size:.64rem}
+.stock-row{border:1px solid #dfe6f3;border-radius:16px;background:#fff;overflow:hidden}
+.stock-row.low{border-color:#f0c9bd;background:#fffaf8}
+.stock-row-main{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:.7rem;align-items:center;padding:.75rem .85rem}
+.stock-row-name{display:grid;gap:2px;min-width:0}
+.stock-row-name strong{overflow-wrap:anywhere}
+.stock-row-name small,.stock-row-qty small{color:#7a859c;font-size:.72rem}
+.stock-row-qty{display:grid;gap:2px}
+.stock-row-qty strong{font-size:1rem;color:#293b75}
+.stock-row-qty em{font-style:normal;font-size:.7rem;color:#7a859c;font-weight:700}
+.stock-row-qty small.low{color:#b2381d;font-weight:700}
+.stock-row-actions{display:flex;align-items:center;gap:.4rem}
+.stock-add{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.stock-entry{display:grid;gap:10px;padding:.85rem;border-top:1px dashed #d6dff0;background:#f6f8ff}
+.stock-entry-modes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.stock-entry-modes button{min-height:34px;border:1px solid #d6dff0;border-radius:10px;background:#fff;color:#4a5778;font:inherit;font-size:.78rem;font-weight:700;cursor:pointer}
+.stock-entry-modes button.active{background:#3457d5;border-color:#3457d5;color:#fff}
+.stock-entry-fields{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:.7rem}
+.stock-entry-fields input{width:100%;box-sizing:border-box}
+.stock-entry-hint{margin:0;font-size:.74rem;color:#61708b}
+.stock-entry-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+.stock-footnote{margin:0;font-size:.76rem;color:#7a859c}
+.stock-log{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.stock-log li{display:flex;justify-content:space-between;gap:12px;padding:.6rem .75rem;border-radius:12px;background:#f6f8ff}
+.stock-log li div{display:grid;gap:2px;min-width:0}
+.stock-log small{color:#7a859c;font-size:.72rem}
+.stock-log-change{text-align:right;font-weight:750;white-space:nowrap}
+.stock-log-change.up{color:#136b3f}
+.stock-log-change.down{color:#a12a2a}
+@media(max-width:560px){
+  .stock-row-main{grid-template-columns:minmax(0,1fr) auto}
+  .stock-row-qty{grid-column:1;grid-row:2}
+  .stock-row-actions{grid-column:2;grid-row:1/3;align-self:center;flex-direction:column;align-items:stretch}
+  .stock-entry-fields{grid-template-columns:minmax(0,1fr)}
+  .inventory-chips{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
