@@ -814,3 +814,12 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .structure-row{display:flex;align-items:flex-end;gap:.6rem;flex-wrap:wrap}
 .structure-row .field{flex:1 1 140px;max-width:200px}
 .structure-note{margin:.6rem 0 .2rem!important;padding:.45rem .6rem;border-radius:10px;background:#e6f7ee;color:#136b3f!important;font-size:.78rem}
+
+/* Install app card */
+.install-card{display:grid;gap:.5rem}
+.install-card p{margin:0;font-size:.82rem;line-height:1.5;color:#4a5778}
+.install-card .btn{justify-self:start}
+.install-status{display:flex;align-items:center;gap:6px;padding:.5rem .7rem;border-radius:10px;background:#eef1f9;font-weight:650}
+.install-status.ok{background:#e6f7ee;color:#136b3f!important}
+.install-steps{margin:0;padding-left:1.2rem;display:grid;gap:.3rem;font-size:.82rem;color:#4a5778}
+.install-foot{font-size:.74rem!important;color:#7a859c!important}
