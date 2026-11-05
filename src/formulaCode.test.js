@@ -1,6 +1,6 @@
 import {describe,expect,it} from 'vitest';
 import {formatFormulaCode,formatStamp,nextFormulaCode,withFormulaCodes} from './formulaCode';
-import {upsertPriceRecord} from './pricing';
+import {collapsePriceHistory,upsertPriceRecord} from './pricing';
 
 describe('formula codes',()=>{
   it('formats a padded code',()=>{
@@ -64,11 +64,22 @@ describe('save once per formula',()=>{
     const result=upsertPriceRecord([],{id:'new',price:1});
     expect(result).toEqual({history:[{id:'new',price:1}],updated:false});
   });
-  it('replaces the latest record in place, keeping its id',()=>{
+  it('replaces the saved record, keeping its id, and leaves a single record',()=>{
     const history=[{id:'a',price:1},{id:'b',price:2}];
     const result=upsertPriceRecord(history,{id:'zzz',price:3});
     expect(result.updated).toBe(true);
-    expect(result.history).toEqual([{id:'a',price:1},{id:'b',price:3}]);
+    expect(result.history).toEqual([{id:'b',price:3}]);
+  });
+  it('collapses older duplicate records down to the newest one',()=>{
+    const formula={name:'Dream Mist',pricingHistory:[{id:'a',price:208},{id:'b',price:190},{id:'c',price:200}]};
+    expect(collapsePriceHistory(formula).pricingHistory).toEqual([{id:'c',price:200}]);
+    expect(formula.pricingHistory).toHaveLength(3);
+  });
+  it('leaves formulas with zero or one saved price untouched',()=>{
+    const none={name:'A'},one={name:'B',pricingHistory:[{id:'x'}]};
+    expect(collapsePriceHistory(none)).toBe(none);
+    expect(collapsePriceHistory(one)).toBe(one);
+    expect(collapsePriceHistory(undefined)).toBeUndefined();
   });
   it('never grows the list after the first save',()=>{
     let history=[];
