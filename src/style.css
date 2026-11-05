@@ -356,3 +356,14 @@ body{background:radial-gradient(circle at 12% 4%,#e9ecff 0,transparent 27rem),ra
 .formula-summary-scent{display:grid;gap:2px;margin:6px 0 0;font-size:.82rem;color:#46526f}
 .formula-summary-scent b{font-weight:750;color:#293b75}
 .saved-formula-scent{display:block;color:#3f55c7!important;font-weight:650}
+
+/* Status and notes step layout */
+.formula-meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.formula-notes-trio{display:grid;grid-template-columns:minmax(0,1fr);gap:.8rem;margin-top:.8rem}
+.formula-meta-grid .field,.formula-notes-trio .field,.formula-notes-field{min-width:0}
+.formula-meta-grid .input-wrap,.formula-notes-trio .input-wrap{width:100%}
+.formula-meta-grid input,.formula-meta-grid select,.formula-notes-trio input{width:100%;box-sizing:border-box}
+.formula-notes-field{margin-top:.8rem}
+.formula-notes-field textarea{min-height:84px;box-sizing:border-box}
+@media(min-width:720px){.formula-notes-trio{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:380px){.formula-meta-grid{grid-template-columns:minmax(0,1fr)}}
