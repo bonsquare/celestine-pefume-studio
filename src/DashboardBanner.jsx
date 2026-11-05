@@ -77,6 +77,7 @@ export default function DashboardBanner({name,alerts,onGo}){
   const showChips=attentionCount(alerts)>0||alerts.inProgress>0;
   return <section className={`dashboard-banner scene-${scene}${christmas?' theme-christmas':''}`} aria-label={`${greetings[scene]}, ${name||'welcome'}`}>
     {(christmas?christmasScenes:scenes)[scene]}
+    <img className="banner-logo" src="/celestine-logo.jpg" alt="Celestine &amp; Co." width="48" height="48"/>
     <div className="banner-text">
       <p className="banner-greeting"><Icon size={18} aria-hidden="true"/> {greetings[scene]}</p>
       <h2 className="banner-name">{name||'Celestine Studio'}</h2>

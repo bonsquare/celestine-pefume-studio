@@ -1097,3 +1097,10 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .sheet .bc-sep{display:flex;align-items:center;gap:8px;margin:10px 0 6px;font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#6b7194}
 .sheet .bc-sep::after{content:"";flex:1;height:1px;background:#dfe3f2}
 .sheet .sheet-group{display:block}
+
+/* Logo on the loading screen and the Dashboard banner */
+#root .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+#root .loading-logo{width:84px;height:84px;border-radius:20px;object-fit:cover;box-shadow:0 12px 30px #063b2c38;animation:logo-pulse 1.8s ease-in-out infinite}
+@keyframes logo-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+#root .banner-logo{position:absolute;top:12px;right:12px;z-index:3;width:48px;height:48px;border-radius:13px;object-fit:cover;border:2px solid #ffffffd0;box-shadow:0 6px 16px #0a1b3a55}
+@media (prefers-reduced-motion:reduce){#root .loading-logo{animation:none}}
