@@ -4,6 +4,8 @@ export const money=v=>new Intl.NumberFormat('en-PH',{style:'currency',currency:'
 export const rateMoney=v=>new Intl.NumberFormat('en-PH',{style:'currency',currency:'PHP',minimumFractionDigits:2,maximumFractionDigits:6}).format(num(v));
 export const materialRate=x=>num(x.contentQuantity)>0?num(x.purchasePrice)/num(x.contentQuantity):0;
 export const materialUnit=x=>x.contentUnit==='g'?'g':'mL';
+// Display-only label. Stored values stay 'mL' and 'g' so saved data keeps working.
+export const unitLabel=unit=>{const u=String(unit??'').toLowerCase();return u==='g'||u==='gram'||u==='grams'?'GRAMS':u==='ml'?'ML':unit};
 export const materialCategories=['Fragrance Oil','Alcohol','Fixative','Water','Solvent','Additive','Other'];
 export const inferMaterialCategory=name=>/fixative|ambrox|musk/i.test(name||'')?'Fixative':/alcohol|ethanol/i.test(name||'')?'Alcohol':/water|aqua/i.test(name||'')?'Water':/solvent|dpg|dipropylene/i.test(name||'')?'Solvent':/additive|color|dye|preservative/i.test(name||'')?'Additive':/fragrance|essential oil|perfume oil/i.test(name||'')?'Fragrance Oil':'Other';
 export const sortMaterials=materials=>[...materials].sort((a,b)=>materialCategories.indexOf(a.category??inferMaterialCategory(a.name))-materialCategories.indexOf(b.category??inferMaterialCategory(b.name))||a.name.localeCompare(b.name,undefined,{sensitivity:'base'}));

@@ -1,4 +1,4 @@
-import {uid,num,materialRate,calculate} from './logic';
+import {uid,num,materialRate,calculate,unitLabel} from './logic';
 
 export const emptyFormulaDraft=()=>({id:uid(),name:'',targetAmount:120,targetUnit:'mL',targetBasis:'oil',materials:[],markup:100,margin:50,fees:0,pricingMethod:'markup'});
 
@@ -28,7 +28,7 @@ export function calculateFormulaDraft(draft,data){
   if(selected.some(row=>row.percentage<0||row.percentage>100))errors.push('Each ingredient percentage must be between 0 and 100.');
   if(Math.abs(percentage-100)>.001)errors.push(`Ingredient percentages must total 100% (currently ${percentage.toFixed(2)}%).`);
   if(oilPercentage<=0)errors.push('Fragrance oil percentage must be greater than zero.');
-  if(target<=0)errors.push(`${basis==='oil'?'Fragrance oil amount':'Target output'} must be greater than zero ${basis==='output'?'mL':unit}.`);
+  if(target<=0)errors.push(`${basis==='oil'?'Fragrance oil amount':'Target output'} must be greater than zero ${unitLabel(basis==='output'?'mL':unit)}.`);
   const averageDensity=selected.reduce((sum,row)=>sum+row.percentage/100*(num(row.material?.density)||1),0);
   const oilDensity=oilPercentage>0?selected.filter(row=>row.role==='oil').reduce((sum,row)=>sum+row.percentage/100*(num(row.material?.density)||1),0)/(oilPercentage/100):0;
   let volume=0;

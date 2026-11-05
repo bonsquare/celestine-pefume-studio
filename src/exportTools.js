@@ -1,4 +1,4 @@
-import {num,materialUnit,materialRate} from './logic';
+import {num,materialUnit,materialRate,unitLabel} from './logic';
 
 // Quote a value for CSV. Also neutralises spreadsheet formulas (=, +, -, @) so opened files cannot run them.
 export const csvCell=value=>{
@@ -13,11 +13,11 @@ const round=(value,places=2)=>Number(num(value).toFixed(places));
 
 export const materialsCsv=data=>toCsv(
   ['Name','Category','Make','Supplier','Purchase quantity','Unit','Purchase price','Cost per unit','Density (g/mL)','Stock on hand','Low-stock level'],
-  (data.ingredients||[]).map(item=>[item.name,item.category,item.make,item.supplier,num(item.contentQuantity),materialUnit(item),num(item.purchasePrice),round(materialRate(item),6),num(item.density),num(item.stockQuantity),num(item.reorderLevel)])
+  (data.ingredients||[]).map(item=>[item.name,item.category,item.make,item.supplier,num(item.contentQuantity),unitLabel(materialUnit(item)),num(item.purchasePrice),round(materialRate(item),6),num(item.density),num(item.stockQuantity),num(item.reorderLevel)])
 );
 
 export const batchesCsv=data=>toCsv(
-  ['Batch number','Name','Date','Status','Matures','Bottles','Expected yield (mL)','Actual yield (mL)','Production cost','Cost per bottle','Projected gross profit','Inventory deducted'],
+  ['Batch number','Name','Date','Status','Matures','Bottles','Expected yield (ML)','Actual yield (ML)','Production cost','Cost per bottle','Projected gross profit','Inventory deducted'],
   (data.batches||[]).map(batch=>[batch.batchNumber,batch.name,batch.date,batch.status||'Planned',batch.maturationDate,num(batch.bottles),round(batch.expectedYield,1),round(batch.actualYield??batch.expectedYield,1),round(batch.productionCost),round(batch.costPerBottle),round(batch.projectedGrossProfit),batch.inventoryDeducted?'Yes':'No'])
 );
 
