@@ -615,3 +615,53 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   .pricing-tier summary>span[data-label]::before{content:attr(data-label);font-size:.6rem;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:#7a859c}
   .pricing-tier-head{display:none}
 }
+
+/* Pricing: keep new blocks inside the card padding, and line headings up with the tier rows */
+.pricing-hero{margin:14px 16px}
+.pricing-totals{margin:10px 16px}
+.pricing-tier-head{border-left:4px solid transparent;border-right:1px solid transparent}
+
+/* Pricing: three totals on one row, compact price card */
+.pricing-totals{grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem}
+.pricing-totals>div{padding:.6rem .65rem}
+.pricing-totals span{font-size:.58rem}
+.pricing-totals strong{font-size:.95rem}
+.pricing-totals small{font-size:.64rem;line-height:1.3}
+@media(max-width:560px){
+  .pricing-hero{padding:.85rem .95rem;gap:.7rem}
+  .pricing-hero-side{grid-template-columns:1fr 1fr;column-gap:.8rem;row-gap:.5rem}
+  .pricing-hero-side .margin-badge{grid-column:1/-1;justify-self:start}
+}
+
+/* Pricing table: figures and their headings share one alignment */
+@media(min-width:561px){
+  .pricing-tier-head>span:nth-child(n+2),.pricing-tier summary>span:nth-child(n+2){text-align:right;justify-self:end}
+}
+
+/* ===== Compact density (global) ===== */
+#root main{padding:10px 12px 84px;gap:10px}
+#root .topbar{padding:12px 14px 8px}
+#root .topbar h1{font-size:1.2rem;line-height:1.2}
+#root .eyebrow{font-size:.6rem;margin-bottom:3px}
+#root .card{padding:.6rem .7rem}
+#root .card h2{font-size:.88rem}
+#root .card-head{margin-bottom:.35rem}
+#root .field input,#root .field select{min-height:34px}
+#root .btn:not(.saved-formula-actions .btn){min-height:34px;padding:.35rem .75rem;font-size:.78rem}
+#root .icon-button{width:32px;height:32px}
+#root .bottom-nav{padding:3px 4px}
+#root .bottom-nav button{min-height:46px;gap:2px}
+#root .dashboard-hero{padding:.8rem .9rem}
+#root .dashboard-metric{padding:.55rem .65rem}
+#root .stock-row-main{padding:.5rem .65rem;gap:.5rem}
+#root .inventory-group{padding:.65rem}
+#root .inventory-stat{padding:.55rem .6rem}
+#root .inventory-stat .stat-icon{width:26px;height:26px;margin-bottom:3px}
+#root .pricing-hero{padding:.75rem .9rem}
+#root .pricing-hero-main strong{font-size:1.6rem}
+#root .library-empty{padding:1.2rem 1rem}
+#root .costing-steps li{padding:.5rem .65rem}
+@media(max-width:560px){
+  #root .card{padding:.55rem .65rem}
+  #root .inventory-head{gap:.5rem}
+}
