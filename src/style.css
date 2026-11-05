@@ -895,3 +895,7 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root .timeline-dates label{display:grid;gap:3px}
 #root .timeline-dates label span{font-size:11px;color:#6b7194}
 #root .timeline-dates input{width:100%;min-width:0}
+
+#root .batch-filter{display:grid;gap:3px;margin:0 0 10px}
+#root .batch-filter span{font-size:11px;color:#6b7194;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+#root .batch-filter select{width:100%}
