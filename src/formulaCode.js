@@ -27,11 +27,11 @@ export function withFormulaCodes(formulas){
   });
 }
 
-// "Nov 5, 2026 at 3:36 PM"
+// "Nov 5, 2026 @ 3:36 PM"
 export function formatStamp(value){
   const date=new Date(value);
   if(!value||Number.isNaN(date.getTime()))return '';
   const day=date.toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'});
   const time=date.toLocaleTimeString('en-PH',{hour:'numeric',minute:'2-digit',hour12:true}).replace(/\s?(am|pm)$/i,(match,part)=>` ${part.toUpperCase()}`);
-  return `${day} at ${time}`;
+  return `${day} @ ${time}`;
 }

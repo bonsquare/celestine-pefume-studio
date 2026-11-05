@@ -46,11 +46,11 @@ describe('formula codes',()=>{
 describe('formatStamp',()=>{
   it('writes the date and time once, in plain words',()=>{
     const text=formatStamp(new Date(2026,10,5,15,36).toISOString());
-    expect(text).toBe('Nov 5, 2026 at 3:36 PM');
+    expect(text).toBe('Nov 5, 2026 @ 3:36 PM');
   });
   it('uses AM and PM in capitals and handles midnight and noon',()=>{
-    expect(formatStamp(new Date(2026,0,2,0,5).toISOString())).toBe('Jan 2, 2026 at 12:05 AM');
-    expect(formatStamp(new Date(2026,0,2,12,0).toISOString())).toBe('Jan 2, 2026 at 12:00 PM');
+    expect(formatStamp(new Date(2026,0,2,0,5).toISOString())).toBe('Jan 2, 2026 @ 12:05 AM');
+    expect(formatStamp(new Date(2026,0,2,12,0).toISOString())).toBe('Jan 2, 2026 @ 12:00 PM');
   });
   it('returns an empty string for missing or invalid dates',()=>{
     expect(formatStamp('')).toBe('');
