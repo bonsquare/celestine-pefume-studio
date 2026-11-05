@@ -2,7 +2,7 @@ import {calculate,num} from './logic';
 import {calculatePricingTiers,defaultPricingTiers} from './pricing';
 import {stockRows} from './stock';
 
-const activeStatuses=['Planned','Mixing','Maturing','Bottling'];
+const activeStatuses=['Planned','Mixing','Maceration','Maturing','Bottling'];
 const localDate=date=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
 
 // What needs doing, for the Dashboard banner. Every number is a count of things to look at.

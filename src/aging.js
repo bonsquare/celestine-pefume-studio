@@ -72,10 +72,10 @@ export function agingView(batch,today=localDate()){
 }
 
 // The production status you already use (Mixing, Maturing, Bottling, Completed) follows the aging schedule forward, never backward.
-const rank={Planned:0,Mixing:1,Maturing:2,Bottling:3};
+const rank={Planned:0,Mixing:1,Maceration:2,Maturing:3,Bottling:4};
 export function syncProductionStatus(batch,today=localDate()){
   if(finished(batch)||batch.archived||batch.onHold||!(batch.status in rank))return batch;
-  const {status}=agingView(batch,today),target=status==='Ready for Bottling'?'Bottling':status==='Maturing'?'Maturing':null;
+  const {status}=agingView(batch,today),target=status==='Ready for Bottling'?'Bottling':status==='Maturing'?'Maturing':status==='Macerating'?'Maceration':null;
   return target&&rank[batch.status]<rank[target]?{...batch,status:target}:batch;
 }
 export function syncProductionStatuses(batches,today=localDate()){

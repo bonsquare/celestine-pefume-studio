@@ -99,12 +99,16 @@ describe('counters and production status',()=>{
     expect(agingCounts(list,'2026-11-05')).toEqual({total:4,macerating:1,maturing:1,ready:0,onHold:1,archived:1});
   });
   it('production status follows forward only',()=>{
+    expect(syncProductionStatus(batch(),'2026-11-05').status).toBe('Maceration');
+    expect(syncProductionStatus(batch({status:'Mixing'}),'2026-11-05').status).toBe('Maceration');
+    expect(syncProductionStatus(batch({status:'Maturing'}),'2026-11-05').status).toBe('Maturing');
+    expect(syncProductionStatus(batch({status:'Planned'}),'2026-10-30').status).toBe('Planned');
     expect(syncProductionStatus(batch(),'2026-11-16').status).toBe('Maturing');
     expect(syncProductionStatus(batch(),'2026-12-16').status).toBe('Bottling');
     expect(syncProductionStatus(batch({status:'Bottling'}),'2026-11-16').status).toBe('Bottling');
     expect(syncProductionStatus(batch({status:'Completed'}),'2026-12-16').status).toBe('Completed');
     expect(syncProductionStatus(batch({onHold:true}),'2026-12-16').status).toBe('Planned');
-    const list=[batch()];expect(syncProductionStatuses(list,'2026-11-05')).toBe(list);
+    const list=[batch()];expect(syncProductionStatuses(list,'2026-10-30')).toBe(list);expect(syncProductionStatuses(list,'2026-11-05')).not.toBe(list);
   });
 });
 
