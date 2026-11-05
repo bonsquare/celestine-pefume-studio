@@ -1,6 +1,8 @@
 import {useEffect,useMemo,useState} from 'react';
 import {Plus,Pencil,Trash2,X,Save,Droplets,Package,Wallet} from 'lucide-react';
 import CategorySelect from './CategorySelect';
+import Combobox from './Combobox';
+import {plural,uniqueOptions} from './suggestions';
 import {num,money,unitLabel} from './logic';
 import {addStock,addSupply,removeSupply,setStockCount,stockRows,stockSummary,subgroupOrder,supplyCategories,updateSupply} from './inventory';
 
@@ -16,7 +18,7 @@ const sections=[
 const subgroupRank=name=>{const index=subgroupOrder.indexOf(name);return index<0?999:index};
 const when=value=>value?new Date(value).toLocaleString('en-PH',{dateStyle:'medium',timeStyle:'short'}):'';
 
-function StockEntry({row,onAdd,onCount,onClose}){
+function StockEntry({row,noteOptions,onAdd,onCount,onClose}){
   const [mode,setMode]=useState('add'),[quantity,setQuantity]=useState(''),[note,setNote]=useState(''),[error,setError]=useState('');
   const submit=event=>{
     event.preventDefault();
@@ -28,7 +30,7 @@ function StockEntry({row,onAdd,onCount,onClose}){
     <div className="stock-entry-modes" role="group" aria-label="Stock action"><button type="button" className={mode==='add'?'active':''} onClick={()=>{setMode('add');setError('')}}>Add stock</button><button type="button" className={mode==='count'?'active':''} onClick={()=>{setMode('count');setError('')}}>Set counted total</button></div>
     <div className="stock-entry-fields">
       <Field label={mode==='add'?'Quantity received':'Counted quantity'} unit={row.unit}><NumberInput autoFocus value={quantity} onChange={value=>{setQuantity(value);setError('')}}/></Field>
-      <label className="field"><span>Note (optional)</span><input value={note} placeholder="e.g. Supplier delivery, invoice no." onChange={event=>setNote(event.target.value)}/></label>
+      <Combobox label="Note (optional)" value={note} placeholder="e.g. Supplier delivery, invoice no." options={noteOptions} maxLength={120} onChange={setNote}/>
     </div>
     <p className="stock-entry-hint">{mode==='add'?`Adds to the ${display(row.stock)} ${unitLabel(row.unit)} on hand.`:`Replaces the ${display(row.stock)} ${unitLabel(row.unit)} on hand with your physical count.`}</p>
     {error&&<p className="material-error" role="alert">{error}</p>}
@@ -36,7 +38,7 @@ function StockEntry({row,onAdd,onCount,onClose}){
   </form>;
 }
 
-function SupplyForm({initial,isNew,categories,onSave,onClose,onDelete}){
+function SupplyForm({initial,isNew,categories,nameOptions,onSave,onClose,onDelete}){
   const [draft,setDraft]=useState({name:'',category:'Bottle',openingStock:'',reorderLevel:'',unitCost:'',usedPerBottle:'',...initial}),[error,setError]=useState('');
   const set=(key,value)=>{setDraft(current=>({...current,[key]:value}));setError('')};
   useEffect(()=>{const key=event=>{if(event.key==='Escape')onClose()};document.addEventListener('keydown',key);return()=>document.removeEventListener('keydown',key)},[]);
@@ -50,7 +52,7 @@ function SupplyForm({initial,isNew,categories,onSave,onClose,onDelete}){
     <div className="material-dialog-header"><div><p className="eyebrow">STOCK INVENTORY</p><h2 id="supply-dialog-title">{isNew?'Add Inventory':`Edit ${initial.name}`}</h2></div><button type="button" className="icon-button" aria-label="Close form" onClick={onClose}><X size={20}/></button></div>
     <form onSubmit={submit} className="material-dialog-form"><div className="material-dialog-fields">
       <h3 className="material-form-heading">Item</h3>
-      <Field label="Item name"><input autoFocus value={draft.name} placeholder="e.g. 50 ML glass bottle" onChange={event=>set('name',event.target.value)}/></Field>
+      <Combobox wide label="Item name" value={draft.name} placeholder="e.g. 50 ML glass bottle" options={nameOptions} onChange={value=>set('name',value)}/>
       <CategorySelect value={draft.category} options={[...new Set([...categories,draft.category].filter(Boolean))]} onChange={category=>set('category',category)}/>
       <h3 className="material-form-heading">Stock</h3>
       {isNew&&<Field label="Opening stock" unit="PCS"><NumberInput value={draft.openingStock} onChange={value=>set('openingStock',value)}/></Field>}
@@ -68,6 +70,9 @@ function SupplyForm({initial,isNew,categories,onSave,onClose,onDelete}){
 export default function Inventory({data,onChange,onNotice}){
   const [query,setQuery]=useState(''),[filter,setFilter]=useState('all'),[openKey,setOpenKey]=useState(null),[form,setForm]=useState(null),[showAll,setShowAll]=useState(false);
   const rows=useMemo(()=>stockRows(data),[data]),summary=useMemo(()=>stockSummary(rows),[rows]);
+  // Remembered values for the forms below.
+  const nameOptions=useMemo(()=>uniqueOptions(data.supplies,item=>item.name,entry=>entry.record.category||''),[data.supplies]);
+  const noteOptions=useMemo(()=>uniqueOptions((data.stockLog||[]).filter(entry=>entry.reason==='Added'||entry.reason==='Counted'),entry=>entry.note,entry=>`Used ${plural(entry.count,'time')}`),[data.stockLog]);
   // Built-in supply categories plus any custom ones already used.
   const categories=useMemo(()=>[...new Set([...supplyCategories,...(data.supplies||[]).map(item=>item.category).filter(Boolean)])],[data.supplies]);
   const counts={all:rows.length,liquid:rows.filter(row=>row.group==='liquid').length,solid:rows.filter(row=>row.group==='solid').length,low:summary.low};
@@ -92,7 +97,7 @@ export default function Inventory({data,onChange,onNotice}){
           <div className="stock-row-qty"><strong>{display(row.stock)} <em>{unitLabel(row.unit)}</em></strong><small className={row.low?'low':''}>{row.low?'Low stock':'In stock'} · alert at {display(row.reorder)}</small></div>
           <div className="stock-row-actions"><button className="btn primary stock-add" aria-expanded={open} onClick={()=>setOpenKey(open?null:key)}><Plus size={15}/> Add stock</button>{row.kind==='supply'&&<button className="icon-button" aria-label={`Edit ${row.name}`} onClick={()=>setForm({isNew:false,initial:row.item})}><Pencil size={17}/></button>}</div>
         </div>
-        {open&&<StockEntry row={row} onClose={()=>setOpenKey(null)} onAdd={(quantity,note)=>{onChange(addStock(data,row.kind,row.id,quantity,note));onNotice(`Added ${display(quantity)} ${unitLabel(row.unit)} to ${row.name}.`)}} onCount={(quantity,note)=>{onChange(setStockCount(data,row.kind,row.id,quantity,note));onNotice(`${row.name} count set to ${display(quantity)} ${unitLabel(row.unit)}.`)}}/>}
+        {open&&<StockEntry row={row} noteOptions={noteOptions} onClose={()=>setOpenKey(null)} onAdd={(quantity,note)=>{onChange(addStock(data,row.kind,row.id,quantity,note));onNotice(`Added ${display(quantity)} ${unitLabel(row.unit)} to ${row.name}.`)}} onCount={(quantity,note)=>{onChange(setStockCount(data,row.kind,row.id,quantity,note));onNotice(`${row.name} count set to ${display(quantity)} ${unitLabel(row.unit)}.`)}}/>}
       </article>})}</div>})}</section>:null}):<div className="library-empty"><h3>{rows.length?'No items match':'Nothing in stock yet'}</h3><p>{rows.length?'Try a different search or filter.':'Add raw materials in the Raw Material Library, or add bottles, stickers and other supplies here.'}</p>{rows.length?<button className="btn" onClick={()=>{setQuery('');setFilter('all')}}>Clear filters</button>:<button className="btn primary" onClick={()=>setForm({isNew:true,initial:{}})}><Plus size={16}/> Add Inventory</button>}</div>}
       <p className="stock-footnote">Liquid means anything measured in ML. Materials measured in GRAMS, bottles, stickers and other supplies are listed as non-liquid. Material details, prices and units are edited in the Raw Material Library. Completed batches deduct materials automatically.</p>
     </section>
@@ -100,6 +105,6 @@ export default function Inventory({data,onChange,onNotice}){
       <div className="card-head"><div><p className="eyebrow">HISTORY</p><h2>Stock movements</h2></div><span className="muted">{log.length} {log.length===1?'entry':'entries'}</span></div>
       {log.length?<><ul className="stock-log">{visibleLog.map(entry=><li key={entry.id}><div><strong>{entry.name}</strong><small>{when(entry.date)} · {entry.reason}{entry.note?` · ${entry.note}`:''}</small></div><div className={`stock-log-change ${entry.change>0?'up':'down'}`}>{entry.change>0?'+':''}{display(entry.change)} {unitLabel(entry.unit)}<small>Balance {display(entry.balance)}</small></div></li>)}</ul>{log.length>8&&<button className="btn secondary" onClick={()=>setShowAll(!showAll)}>{showAll?'Show fewer':`Show all ${log.length}`}</button>}</>:<p className="stock-footnote">Added stock, counts and batch usage will be listed here.</p>}
     </section>
-    {form&&<SupplyForm key={form.initial.id||'new'} initial={form.initial} isNew={form.isNew} categories={categories} onSave={saveSupply} onClose={()=>setForm(null)} onDelete={deleteSupply}/>}
+    {form&&<SupplyForm key={form.initial.id||'new'} initial={form.initial} isNew={form.isNew} categories={categories} nameOptions={nameOptions} onSave={saveSupply} onClose={()=>setForm(null)} onDelete={deleteSupply}/>}
   </>;
 }
