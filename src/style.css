@@ -778,3 +778,18 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .perfume-total strong{font-size:.88rem;white-space:nowrap}
 .perfume-total.primary strong{font-size:.98rem}
 @media(max-width:480px){.perfume-totals{grid-template-columns:1.25fr 1fr .9fr}.perfume-total.primary{grid-column:auto}}
+
+/* Bottling page: packaging rows (name | amount | delete) */
+#root .extra-cost-row{grid-template-columns:minmax(0,1fr) 124px 34px;gap:.45rem;align-items:center;padding:.3rem 0}
+#root .extra-cost-row .extra-cost-name{width:100%;min-width:0}
+#root .extra-cost-row .cost-sheet-expense-input{width:100%;min-width:0}
+#root .extra-cost-row .remove-cost-row{width:34px;height:34px;justify-self:end}
+
+/* Bottling totals: same compact tiles as Costing step 1 */
+#root .bottling-math{gap:.4rem;padding:.55rem 16px .8rem;background:transparent;border:0;border-radius:0}
+#root .bottling-math>div{padding:.45rem .55rem;border:1px solid #dfe6f3;border-radius:12px;background:#f8faff;gap:1px}
+#root .bottling-math>div.bottling-math-total{background:#eaf8f1;border-color:#bfe6d1}
+#root .bottling-math span{font-size:.56rem;font-weight:750;text-transform:uppercase;letter-spacing:.05em;line-height:1.25;color:#7a859c}
+#root .bottling-math strong{font-size:.9rem;line-height:1.2;color:#293b75;white-space:nowrap}
+#root .bottling-math>div.bottling-math-total strong{color:#136b3f}
+#root .bottling-math small{display:none}
