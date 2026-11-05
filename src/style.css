@@ -373,3 +373,7 @@ body{background:radial-gradient(circle at 12% 4%,#e9ecff 0,transparent 27rem),ra
 /* Number fields: no spinner arrows (the wheel is also disabled in main.jsx) */
 input[type=number]{-moz-appearance:textfield;appearance:textfield}
 input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+/* Raw material form sections */
+.material-form-heading{grid-column:1/-1;margin:.7rem 0 0;padding-top:.9rem;border-top:1px solid #dfe6f3;font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#6a77a0}
+.material-dialog-fields>.material-form-heading:first-child{margin-top:0;padding-top:0;border-top:0}
