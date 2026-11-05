@@ -529,3 +529,22 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .dashboard-formula-stats.overview-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
 .overview-note{margin:.8rem 0 0;font-size:.74rem;line-height:1.5;color:#61708b}
 @media(min-width:720px){.dashboard-formula-stats.overview-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Dashboard: formula picker and top formulas */
+.dashboard-formula-picker{display:grid;gap:4px;margin-bottom:.75rem}
+.dashboard-formula-picker span{font-size:.64rem;font-weight:750;text-transform:uppercase;letter-spacing:.06em;color:#7a859c}
+.dashboard-formula-picker select{width:100%;min-height:40px;padding:.4rem .7rem;border:1px solid #cdd6e8;border-radius:12px;background:#fff;color:#202944;font:inherit;font-weight:700}
+.top-formulas{margin-top:1rem}
+.top-formula-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.top-formula-list button{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.65rem .8rem;border:1px solid #dfe6f3;border-radius:14px;background:#fff;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .15s,border-color .15s}
+.top-formula-list button:hover:not(:disabled){background:#f6f8ff;border-color:#b9c6e6}
+.top-formula-list button.active{border-color:#3457d5;background:#eef2ff}
+.top-formula-list button:disabled{cursor:default;opacity:.85}
+.top-rank{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:#e8edff;color:#3f55c7;font-size:.8rem;font-weight:800}
+.top-formula-list li:first-child .top-rank{background:#fff1c9;color:#8a5a00}
+.top-formula-name{display:grid;gap:1px;min-width:0}
+.top-formula-name strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top-formula-name small,.top-formula-value small{font-size:.7rem;color:#7a859c}
+.top-formula-value{display:grid;gap:1px;text-align:right}
+.top-formula-value strong{color:#136b3f}
+@media(max-width:480px){.top-formula-list button{grid-template-columns:auto minmax(0,1fr)}.top-formula-value{grid-column:2;text-align:left}}
