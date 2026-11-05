@@ -9,7 +9,7 @@ import AgingBars,{formatDay,statusClass} from './AgingBars';
 import BatchForm from './BatchForm';
 import BatchDetail from './BatchDetail';
 
-const Counter=({label,value,tone})=><div className={`bc-counter bc-${tone}`}><strong>{value}</strong><span>{label}</span></div>;
+const Counter=({label,title,value,tone,active,onClick})=><button type="button" title={title||label} aria-pressed={active} className={`bc-counter bc-${tone}${active?' is-active':''}`} onClick={onClick}><strong>{value}</strong><span>{label}</span></button>;
 
 export default function ProductionBatches({data,by='Local workspace',onChange,onNotice}){
   const [view,setView]=useState({mode:'list'}),[query,setQuery]=useState(''),[scent,setScent]=useState('all'),[stage,setStage]=useState('active');
@@ -62,14 +62,14 @@ export default function ProductionBatches({data,by='Local workspace',onChange,on
   return <section className="card production-batches">
     <div className="card-head"><div><p className="eyebrow">PRODUCTION</p><h2>Production batches</h2></div><button type="button" className="btn primary batch-add" disabled={!data.formulas.length} onClick={()=>setView({mode:'new'})}><Plus size={15}/> Add New Batch</button></div>
     <div className="bc-counters">
-      <Counter label="Total batches" value={counts.total} tone="total"/>
-      <Counter label="Macerating" value={counts.macerating} tone="mac"/>
-      <Counter label="Maturing" value={counts.maturing} tone="mat"/>
-      <Counter label="Ready for bottling" value={counts.ready} tone="ready"/>
-      <Counter label="On hold" value={counts.onHold} tone="hold"/>
+      <Counter label="Total" title="Total batches" value={counts.total} tone="total" active={stage==='active'} onClick={()=>setStage('active')}/>
+      <Counter label="Macerating" value={counts.macerating} tone="mac" active={stage==='Macerating'} onClick={()=>setStage(stage==='Macerating'?'active':'Macerating')}/>
+      <Counter label="Maturing" value={counts.maturing} tone="mat" active={stage==='Maturing'} onClick={()=>setStage(stage==='Maturing'?'active':'Maturing')}/>
+      <Counter label="Ready" title="Ready for bottling" value={counts.ready} tone="ready" active={stage==='Ready for Bottling'} onClick={()=>setStage(stage==='Ready for Bottling'?'active':'Ready for Bottling')}/>
+      <Counter label="On hold" value={counts.onHold} tone="hold" active={stage==='On Hold'} onClick={()=>setStage(stage==='On Hold'?'active':'On Hold')}/>
     </div>
     {!data.formulas.length&&<p className="empty">Create a formulation first, then add a batch for it.</p>}
-    {data.batches.length>0&&<div className="bc-filters">
+    {data.batches.length>0&&<div className="bc-filters"><span className="bc-filter-note">{shown.length} of {data.batches.length} batch{data.batches.length===1?'':'es'}{stage!=='active'||scent!=='all'||query?' · filtered':''}</span>
       <label className="bc-search"><Search size={15} aria-hidden="true"/><input type="search" placeholder="Search batch number or scent" value={query} onChange={event=>setQuery(event.target.value)}/></label>
       <select aria-label="Scent" value={names.includes(scent)?scent:'all'} onChange={event=>setScent(event.target.value)}><option value="all">All scents</option>{names.map(name=><option key={name} value={name}>{name}</option>)}</select>
       <select aria-label="Aging status" value={stage} onChange={event=>setStage(event.target.value)}><option value="active">All active</option><option value="all">Everything</option>{agingStatuses.map(item=><option key={item} value={item}>{item}</option>)}</select>

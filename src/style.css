@@ -1020,3 +1020,18 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root .bf-rows dt{font-size:12.5px;color:#6b7194;margin:0}
 #root .bf-rows dd{margin:0;display:grid;gap:1px;text-align:right;font-size:13px;font-weight:650;color:#202944}
 #root .bf-rows dd small{font-size:11.5px;font-weight:400;color:#6b7194}
+
+/* Batches: compact, tappable counters and tidier filters */
+#root .bc-counters{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+#root .bc-counter{position:relative;justify-items:center;text-align:center;gap:1px;padding:9px 2px 7px;min-height:0;height:auto;cursor:pointer;overflow:hidden;font:inherit}
+#root .bc-counter::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:#b9c2f5}
+#root .bc-mac::before{background:#f2b04a}#root .bc-mat::before{background:#5b86e5}#root .bc-ready::before{background:#2fb673}#root .bc-hold::before{background:#e5646a}
+#root .bc-counter strong{font-size:20px}
+#root .bc-counter span{font-size:10.5px;line-height:1.2;white-space:nowrap}
+#root .bc-counter.is-active{background:#fff;border-color:#6b7bff;box-shadow:0 0 0 2px #dfe3ff}
+#root .bc-filters{grid-template-columns:1fr 1fr;gap:8px}
+@media(min-width:640px){#root .bc-filters{grid-template-columns:2fr 1fr 1fr}#root .bc-filters .bc-search{grid-column:auto}}
+#root .bc-filters .bc-search{grid-column:1/-1;order:1}
+#root .bc-filters select{order:2;min-width:0}
+#root .bc-filter-note{order:3;grid-column:1/-1;font-size:11.5px;color:#6b7194}
+@media(min-width:640px){#root .bc-filters .bc-filter-note{order:4}}
