@@ -36,7 +36,7 @@ export function setStockCount(data,kind,id,counted,note,now){
   return applyStock(data,kind,id,num(counted)-num(item.stockQuantity),{reason:'Counted',note,now});
 }
 
-export const newSupply=fields=>({id:fields.id||uid(),name:String(fields.name||'').trim(),category:supplyCategories.includes(fields.category)?fields.category:'Other',stockQuantity:0,reorderLevel:Math.max(0,num(fields.reorderLevel)),unitCost:Math.max(0,num(fields.unitCost)),usedPerBottle:Math.max(0,num(fields.usedPerBottle))});
+export const newSupply=fields=>({id:fields.id||uid(),name:String(fields.name||'').trim(),category:String(fields.category||'').trim().replace(/\s+/g,' ').slice(0,40)||'Other',stockQuantity:0,reorderLevel:Math.max(0,num(fields.reorderLevel)),unitCost:Math.max(0,num(fields.unitCost)),usedPerBottle:Math.max(0,num(fields.usedPerBottle))});
 
 export function addSupply(data,fields,openingStock,now){
   const supply=newSupply(fields),next={...data,supplies:[...(data.supplies||[]),supply]};

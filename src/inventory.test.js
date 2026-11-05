@@ -36,9 +36,13 @@ describe('supplies',()=>{
     expect(next.supplies[0]).toMatchObject({name:'50 ML bottle',category:'Bottle',stockQuantity:100,reorderLevel:20,unitCost:35,usedPerBottle:1});
     expect(next.stockLog[0]).toMatchObject({reason:'Opening',change:100,unit:'PCS'});
   });
-  it('falls back to Other for an unknown category and keeps stock when editing',()=>{
-    let data=addSupply(base(),{name:'Tape',category:'???'},10,NOW);
-    expect(data.supplies[0].category).toBe('Other');
+  it('keeps a custom category, tidies it, and falls back to Other when blank',()=>{
+    expect(addSupply(base(),{name:'Ribbon',category:'  Gift   Wrap '},0,NOW).supplies[0].category).toBe('Gift Wrap');
+    expect(addSupply(base(),{name:'Ribbon',category:'x'.repeat(80)},0,NOW).supplies[0].category).toHaveLength(40);
+    expect(addSupply(base(),{name:'Ribbon',category:'   '},0,NOW).supplies[0].category).toBe('Other');
+  });
+  it('keeps stock when editing',()=>{
+    let data=addSupply(base(),{name:'Tape',category:'Other'},10,NOW);
     const id=data.supplies[0].id;
     data=updateSupply(data,id,{name:'Tape roll',unitCost:5});
     expect(data.supplies[0]).toMatchObject({name:'Tape roll',unitCost:5,stockQuantity:10,id});

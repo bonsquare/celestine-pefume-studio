@@ -1,5 +1,6 @@
 import {useEffect,useMemo,useState} from 'react';
 import {Plus,Pencil,Trash2,X,Save,Droplets,Package,Wallet} from 'lucide-react';
+import CategorySelect from './CategorySelect';
 import {num,money,unitLabel} from './logic';
 import {addStock,addSupply,removeSupply,setStockCount,stockRows,stockSummary,subgroupOrder,supplyCategories,updateSupply} from './inventory';
 
@@ -11,6 +12,8 @@ const sections=[
   {id:'liquid',title:'Liquid stocks',hint:'Oils, alcohol, water and other materials measured in ML',Icon:Droplets},
   {id:'solid',title:'Non-liquid stocks',hint:'Materials measured in GRAMS, plus bottles, stickers, boxes and other supplies',Icon:Package}
 ];
+// Known sub-headings keep their order; custom categories follow alphabetically.
+const subgroupRank=name=>{const index=subgroupOrder.indexOf(name);return index<0?999:index};
 const when=value=>value?new Date(value).toLocaleString('en-PH',{dateStyle:'medium',timeStyle:'short'}):'';
 
 function StockEntry({row,onAdd,onCount,onClose}){
@@ -33,7 +36,7 @@ function StockEntry({row,onAdd,onCount,onClose}){
   </form>;
 }
 
-function SupplyForm({initial,isNew,onSave,onClose,onDelete}){
+function SupplyForm({initial,isNew,categories,onSave,onClose,onDelete}){
   const [draft,setDraft]=useState({name:'',category:'Bottle',openingStock:'',reorderLevel:'',unitCost:'',usedPerBottle:'',...initial}),[error,setError]=useState('');
   const set=(key,value)=>{setDraft(current=>({...current,[key]:value}));setError('')};
   useEffect(()=>{const key=event=>{if(event.key==='Escape')onClose()};document.addEventListener('keydown',key);return()=>document.removeEventListener('keydown',key)},[]);
@@ -48,7 +51,7 @@ function SupplyForm({initial,isNew,onSave,onClose,onDelete}){
     <form onSubmit={submit} className="material-dialog-form"><div className="material-dialog-fields">
       <h3 className="material-form-heading">Item</h3>
       <Field label="Item name"><input autoFocus value={draft.name} placeholder="e.g. 50 ML glass bottle" onChange={event=>set('name',event.target.value)}/></Field>
-      <Field label="Category"><select value={draft.category} onChange={event=>set('category',event.target.value)}>{supplyCategories.map(category=><option key={category} value={category}>{category}</option>)}</select></Field>
+      <CategorySelect value={draft.category} options={[...new Set([...categories,draft.category].filter(Boolean))]} onChange={category=>set('category',category)}/>
       <h3 className="material-form-heading">Stock</h3>
       {isNew&&<Field label="Opening stock" unit="PCS"><NumberInput value={draft.openingStock} onChange={value=>set('openingStock',value)}/></Field>}
       <Field label="Low-stock level" unit="PCS"><NumberInput value={draft.reorderLevel} onChange={value=>set('reorderLevel',value)}/></Field>
@@ -65,6 +68,8 @@ function SupplyForm({initial,isNew,onSave,onClose,onDelete}){
 export default function Inventory({data,onChange,onNotice}){
   const [query,setQuery]=useState(''),[filter,setFilter]=useState('all'),[openKey,setOpenKey]=useState(null),[form,setForm]=useState(null),[showAll,setShowAll]=useState(false);
   const rows=useMemo(()=>stockRows(data),[data]),summary=useMemo(()=>stockSummary(rows),[rows]);
+  // Built-in supply categories plus any custom ones already used.
+  const categories=useMemo(()=>[...new Set([...supplyCategories,...(data.supplies||[]).map(item=>item.category).filter(Boolean)])],[data.supplies]);
   const counts={all:rows.length,liquid:rows.filter(row=>row.group==='liquid').length,solid:rows.filter(row=>row.group==='solid').length,low:summary.low};
   const needle=query.trim().toLowerCase();
   const shown=rows.filter(row=>(filter==='all'||(filter==='low'?row.low:row.group===filter))&&[row.name,row.detail,row.category].join(' ').toLowerCase().includes(needle)).sort((a,b)=>a.name.localeCompare(b.name,undefined,{sensitivity:'base'}));
@@ -81,7 +86,7 @@ export default function Inventory({data,onChange,onNotice}){
       <div className="inventory-stats"><div className="inventory-stat"><span className="stat-icon"><Package size={16}/></span><span className="stat-label">Items</span><strong>{summary.items}</strong></div><div className={`inventory-stat ${summary.low?'warn':'ok'}`}><span className="stat-icon stat-dot" aria-hidden="true"/><span className="stat-label">Low stock</span><strong>{summary.low}</strong></div><div className="inventory-stat"><span className="stat-icon"><Wallet size={16}/></span><span className="stat-label">Stock value</span><strong>{money(summary.value)}</strong></div></div>
       <div className="inventory-tools"><label className="tool-search"><span>Search</span><input type="search" value={query} placeholder="Find an item" onChange={event=>setQuery(event.target.value)}/></label>
         <div className="status-chips inventory-chips" role="group" aria-label="Filter stock">{filters.map(([value,label])=><button type="button" key={value} className={filter===value?'active':''} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}<small>{counts[value]}</small></button>)}</div></div>
-      {shown.length?sections.map(section=>{const list=shown.filter(row=>row.group===section.id),sectionLow=list.filter(row=>row.low).length,sectionValue=list.reduce((sum,row)=>sum+row.value,0),subgroups=subgroupOrder.filter(name=>list.some(row=>row.subgroup===name));return list.length?<section className={`inventory-group inventory-${section.id}`} key={section.id}><div className="inventory-group-head"><span className="inventory-group-icon"><section.Icon size={20}/></span><div><h3>{section.title}</h3><p>{section.hint}</p></div><div className="inventory-group-totals"><strong>{list.length} {list.length===1?'item':'items'}</strong><small>{sectionLow?`${sectionLow} low · `:''}{money(sectionValue)}</small></div></div>{subgroups.map(name=>{const subList=list.filter(row=>row.subgroup===name);return <div className="inventory-subgroup" key={name}><h4 className="inventory-subgroup-title">{name}<small>{subList.length}</small></h4>{subList.map(row=>{const key=`${row.kind}:${row.id}`,open=openKey===key;return <article className={`stock-row ${row.low?'low':''}`} key={key}>
+      {shown.length?sections.map(section=>{const list=shown.filter(row=>row.group===section.id),sectionLow=list.filter(row=>row.low).length,sectionValue=list.reduce((sum,row)=>sum+row.value,0),subgroups=[...new Set(list.map(row=>row.subgroup))].sort((a,b)=>subgroupRank(a)-subgroupRank(b)||a.localeCompare(b));return list.length?<section className={`inventory-group inventory-${section.id}`} key={section.id}><div className="inventory-group-head"><span className="inventory-group-icon"><section.Icon size={20}/></span><div><h3>{section.title}</h3><p>{section.hint}</p></div><div className="inventory-group-totals"><strong>{list.length} {list.length===1?'item':'items'}</strong><small>{sectionLow?`${sectionLow} low · `:''}{money(sectionValue)}</small></div></div>{subgroups.map(name=>{const subList=list.filter(row=>row.subgroup===name);return <div className="inventory-subgroup" key={name}><h4 className="inventory-subgroup-title">{name}<small>{subList.length}</small></h4>{subList.map(row=>{const key=`${row.kind}:${row.id}`,open=openKey===key;return <article className={`stock-row ${row.low?'low':''}`} key={key}>
         <div className="stock-row-main">
           <div className="stock-row-name"><strong>{row.name}</strong><small>{row.detail}</small></div>
           <div className="stock-row-qty"><strong>{display(row.stock)} <em>{unitLabel(row.unit)}</em></strong><small className={row.low?'low':''}>{row.low?'Low stock':'In stock'} · alert at {display(row.reorder)}</small></div>
@@ -95,6 +100,6 @@ export default function Inventory({data,onChange,onNotice}){
       <div className="card-head"><div><p className="eyebrow">HISTORY</p><h2>Stock movements</h2></div><span className="muted">{log.length} {log.length===1?'entry':'entries'}</span></div>
       {log.length?<><ul className="stock-log">{visibleLog.map(entry=><li key={entry.id}><div><strong>{entry.name}</strong><small>{when(entry.date)} · {entry.reason}{entry.note?` · ${entry.note}`:''}</small></div><div className={`stock-log-change ${entry.change>0?'up':'down'}`}>{entry.change>0?'+':''}{display(entry.change)} {unitLabel(entry.unit)}<small>Balance {display(entry.balance)}</small></div></li>)}</ul>{log.length>8&&<button className="btn secondary" onClick={()=>setShowAll(!showAll)}>{showAll?'Show fewer':`Show all ${log.length}`}</button>}</>:<p className="stock-footnote">Added stock, counts and batch usage will be listed here.</p>}
     </section>
-    {form&&<SupplyForm key={form.initial.id||'new'} initial={form.initial} isNew={form.isNew} onSave={saveSupply} onClose={()=>setForm(null)} onDelete={deleteSupply}/>}
+    {form&&<SupplyForm key={form.initial.id||'new'} initial={form.initial} isNew={form.isNew} categories={categories} onSave={saveSupply} onClose={()=>setForm(null)} onDelete={deleteSupply}/>}
   </>;
 }

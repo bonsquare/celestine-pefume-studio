@@ -475,3 +475,24 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   .inventory-stat{padding:.65rem .6rem}
   .inventory-stat strong{font-size:.98rem}
 }
+
+/* Category picker */
+.category-select{grid-column:1/-1;position:relative}
+.category-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;padding:.5rem .8rem;border:1px solid #cdd6e8;border-radius:12px;background:#fff;color:#202944;font:inherit;font-weight:650;text-align:left;cursor:pointer}
+.category-trigger:focus-visible,.category-trigger[aria-expanded=true]{outline:2px solid #3457d5;outline-offset:1px;border-color:#3457d5}
+.category-trigger svg{flex:none;color:#6a77a0;transition:transform .15s}
+.category-trigger[aria-expanded=true] svg{transform:rotate(180deg)}
+.category-menu{margin-top:6px;padding:4px;border:1px solid #dfe6f3;border-radius:14px;background:#fff;box-shadow:0 10px 28px #273a7a1f;max-height:280px;overflow:auto}
+.category-menu [role=option]{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:38px;padding:.4rem .7rem;border:0;border-radius:9px;background:transparent;color:#202944;font:inherit;font-size:.86rem;text-align:left;cursor:pointer}
+.category-menu [role=option]:hover{background:#f1f4ff}
+.category-menu [role=option].selected{background:#e8edff;color:#2544bd;font-weight:700}
+.category-add{margin-top:4px;padding:6px 2px 2px;border-top:1px solid #eef1f9}
+.category-add-trigger{display:flex;align-items:center;gap:6px;width:100%;min-height:38px;padding:.4rem .7rem;border:1px dashed #b9c6e6;border-radius:9px;background:#f9faff;color:#3457d5;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer}
+.category-add-form{display:flex;gap:6px;align-items:center}
+.category-add-form input{flex:1;min-width:0;min-height:38px;padding:.4rem .7rem;border:1px solid #cdd6e8;border-radius:9px;font:inherit;font-size:.86rem}
+
+/* Standard button sizes (one size everywhere; the icon-only button on mobile formula cards keeps its own) */
+#root .btn:not(.saved-formula-actions .btn){min-height:36px;padding:.4rem .85rem;font-size:.8rem;font-weight:700;line-height:1.2;border-radius:10px;gap:6px}
+#root .btn:not(.saved-formula-actions .btn) svg{width:16px;height:16px;flex:none}
+#root .icon-button{width:34px;height:34px;border-radius:10px}
+#root .icon-button svg{width:16px;height:16px}
