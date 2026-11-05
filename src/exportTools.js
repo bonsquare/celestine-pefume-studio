@@ -1,5 +1,5 @@
 import {num,materialUnit,materialRate,unitLabel} from './logic';
-import {stockForm,stockRows} from './inventory';
+import {stockForm,stockRows} from './stock';
 
 // Quote a value for CSV. Also neutralises spreadsheet formulas (=, +, -, @) so opened files cannot run them.
 export const csvCell=value=>{

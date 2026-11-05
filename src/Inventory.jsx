@@ -4,7 +4,7 @@ import CategorySelect from './CategorySelect';
 import Combobox from './Combobox';
 import {plural,uniqueOptions} from './suggestions';
 import {num,money,unitLabel} from './logic';
-import {addStock,addSupply,removeSupply,setStockCount,stockRows,stockSummary,subgroupOrder,supplyCategories,updateSupply} from './inventory';
+import {addStock,addSupply,removeSupply,setStockCount,stockRows,stockSummary,subgroupOrder,supplyCategories,updateSupply} from './stock';
 
 const display=value=>new Intl.NumberFormat('en-PH',{maximumFractionDigits:2}).format(num(value));
 const Field=({label,unit,children})=><label className="field"><span>{label}</span><span className="input-wrap">{children}{unit&&<em>{unitLabel(unit)}</em>}</span></label>;

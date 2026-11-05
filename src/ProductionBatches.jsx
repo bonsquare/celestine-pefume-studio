@@ -1,7 +1,7 @@
 import {Plus,Trash2} from 'lucide-react';
 import {money,num,uid} from './logic';
 import {snapshotPricing} from './pricing';
-import {deductSuppliesForBatch,stockDiffEntries} from './inventory';
+import {deductSuppliesForBatch,stockDiffEntries} from './stock';
 import {batchStatuses,batchWastage,completeBatchInventory,inventoryShortages} from './production';
 
 const futureDate=days=>{const date=new Date();date.setDate(date.getDate()+days);return date.toISOString().slice(0,10)};

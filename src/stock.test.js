@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {addStock,addSupply,deductSuppliesForBatch,removeSupply,setStockCount,stockDiffEntries,stockForm,stockRows,stockSummary,subgroupOrder,updateSupply} from './inventory';
+import {addStock,addSupply,deductSuppliesForBatch,removeSupply,setStockCount,stockDiffEntries,stockForm,stockRows,stockSummary,subgroupOrder,updateSupply} from './stock';
 
 const base=()=>({
   ingredients:[{id:'m1',name:'Cloud',category:'Fragrance Oil',make:'Argeville',supplier:'Shop',contentQuantity:100,contentUnit:'mL',purchasePrice:250,stockQuantity:40,reorderLevel:20}],
