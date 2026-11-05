@@ -127,3 +127,17 @@ html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-the
 #root .theme-chevron{transition:transform .15s;color:var(--t-muted)}
 #root .theme-picker.is-open .theme-chevron{transform:rotate(180deg)}
 #root .theme-picker.is-open .theme-toggle{margin-bottom:6px}
+
+/* Formula status chips: same tile style as the Batches counters */
+html #root .library-chips .status-chips{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+html #root .library-chips .status-chips button{position:relative;flex-direction:column-reverse;align-items:center;justify-content:center;gap:1px;min-height:54px;padding:10px 2px 6px;border-radius:12px;border:1px solid var(--t-line);background:var(--t-soft);color:var(--t-ink3);overflow:hidden}
+html #root .library-chips .status-chips button::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--t-line2)}
+html #root .library-chips .status-chips button:nth-child(1){background:var(--t-c-total)}#root .library-chips .status-chips button:nth-child(1)::before{background:var(--t-brand)}
+html #root .library-chips .status-chips button:nth-child(2)::before{background:#b9b6cf}
+html #root .library-chips .status-chips button:nth-child(3){background:var(--t-c-mac)}#root .library-chips .status-chips button:nth-child(3)::before{background:#ffc9a6}
+html #root .library-chips .status-chips button:nth-child(4){background:var(--t-c-ready)}#root .library-chips .status-chips button:nth-child(4)::before{background:#a9e5c4}
+html #root .library-chips .status-chips button:nth-child(5){background:var(--t-c-hold)}#root .library-chips .status-chips button:nth-child(5)::before{background:#ffb3c4}
+html #root .library-chips .status-chips button small{min-width:0;padding:0;background:transparent;color:var(--t-ink);font-size:19px;font-weight:800;line-height:1.1}
+html #root .library-chips .status-chips button.active{background:var(--t-card);border-color:var(--t-brand);color:var(--t-ink);box-shadow:0 0 0 2px var(--t-tint)}
+html #root .library-chips .status-chips button.active small{background:transparent;color:var(--t-ink)}
+html #root .library-chips .status-chips button:not(.active):hover{border-color:var(--t-line2)}
