@@ -1003,3 +1003,20 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root details.bf-group[open]>summary{margin-bottom:8px}
 
 #root .status-maceration{color:#9a5b00;background:#fff1d6}
+
+/* Batch form: clearer summaries */
+#root details.bf-group>summary{user-select:none;-webkit-user-select:none;align-items:center}
+#root .bf-sum{display:grid;gap:1px;text-align:right;min-width:0}
+#root .bf-sum strong{font-size:13px;color:#202944;font-weight:650}
+#root details.bf-group>summary .bf-sum small{font-size:11.5px;color:#6b7194}
+#root .bf-summary{display:grid;grid-template-columns:1fr;gap:12px;padding:14px;border-radius:14px;background:linear-gradient(180deg,#f3f5ff,#eef1ff);border:1px solid #dfe3f8}
+#root .bf-hero{display:grid;gap:2px;padding:12px 14px;border-radius:12px;background:#fff;border:1px solid #e3e6f3;text-align:center}
+#root .bf-hero span{font-size:11.5px;color:#6b7194;text-transform:uppercase;letter-spacing:.05em}
+#root .bf-hero strong{font-size:22px;color:#2f3a8f;line-height:1.2}
+#root .bf-hero small{font-size:12px;color:#1f7a45;font-weight:600}
+#root .bf-rows{margin:0;display:grid;gap:0}
+#root .bf-rows>div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:8px 2px;border-top:1px solid #dfe3f8}
+#root .bf-rows>div:first-child{border-top:0}
+#root .bf-rows dt{font-size:12.5px;color:#6b7194;margin:0}
+#root .bf-rows dd{margin:0;display:grid;gap:1px;text-align:right;font-size:13px;font-weight:650;color:#202944}
+#root .bf-rows dd small{font-size:11.5px;font-weight:400;color:#6b7194}

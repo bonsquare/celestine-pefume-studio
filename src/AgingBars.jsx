@@ -1,4 +1,12 @@
 export const formatDay=iso=>{if(!iso)return '—';const date=new Date(`${iso}T00:00:00`);return Number.isNaN(date.getTime())?iso:date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})};
+// "Nov 5 → Nov 30, 2026": the year is shown once when both dates share it.
+export const formatRange=(from,to)=>{
+  if(!from||!to)return '—';
+  const a=new Date(`${from}T00:00:00`),b=new Date(`${to}T00:00:00`);
+  if(Number.isNaN(a.getTime())||Number.isNaN(b.getTime()))return `${from} → ${to}`;
+  const short=date=>date.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  return a.getFullYear()===b.getFullYear()?`${short(a)} → ${short(b)}, ${b.getFullYear()}`:`${formatDay(from)} → ${formatDay(to)}`;
+};
 export const statusClass=status=>`aging-${String(status).toLowerCase().replaceAll(' ','-')}`;
 const days=count=>`${count} day${count===1?'':'s'}`;
 
