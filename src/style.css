@@ -342,3 +342,12 @@ body{background:radial-gradient(circle at 12% 4%,#e9ecff 0,transparent 27rem),ra
 .library-empty h3{margin:.2rem 0 0;font-size:1rem;color:#293b75}
 .library-empty p{margin:0 0 .5rem;max-width:34ch;font-size:.8rem;line-height:1.5;color:#5d6a83}
 @media(max-width:560px){.formula-library-tools{grid-template-columns:minmax(0,1fr) 135px;padding:.75rem .9rem}.library-empty{margin:.8rem .9rem 1rem;padding:1.6rem 1rem}}
+
+/* Status chips: one aligned row */
+.status-chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.4rem}
+.status-chips button{justify-content:center;min-width:0;padding:.3rem .35rem;white-space:nowrap}
+@media(max-width:560px){
+  .status-chips{gap:.3rem}
+  .status-chips button{flex-direction:column;gap:.15rem;min-height:46px;padding:.35rem .15rem;font-size:.68rem;border-radius:14px}
+  .status-chips button small{min-width:20px;padding:0 6px;font-size:.62rem;line-height:1.5}
+}
