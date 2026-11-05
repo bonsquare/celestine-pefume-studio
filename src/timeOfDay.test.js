@@ -1,5 +1,41 @@
 import {describe,expect,it} from 'vitest';
-import {greetings,sceneFromSearch,timeOfDay} from './timeOfDay';
+import {christmasInfo,greetings,sceneFromSearch,themeFromSearch,timeOfDay} from './timeOfDay';
+
+describe('christmasInfo',()=>{
+  const on=(y,m,d,h=15)=>new Date(y,m-1,d,h,0);
+  it('counts down to Christmas during the season',()=>{
+    expect(christmasInfo(on(2026,11,5))).toEqual({active:true,daysLeft:50,label:'50 days to Christmas'});
+    expect(christmasInfo(on(2026,11,1)).daysLeft).toBe(54);
+    expect(christmasInfo(on(2026,12,1)).daysLeft).toBe(24);
+  });
+  it('says 1 day on Christmas Eve and Merry Christmas on the day',()=>{
+    expect(christmasInfo(on(2026,12,24)).label).toBe('1 day to Christmas');
+    expect(christmasInfo(on(2026,12,25)).label).toBe('Merry Christmas!');
+    expect(christmasInfo(on(2026,12,25,23)).label).toBe('Merry Christmas!');
+  });
+  it('wishes happy holidays after Christmas until January 6, across the new year',()=>{
+    expect(christmasInfo(on(2026,12,26)).label).toBe('Happy holidays');
+    expect(christmasInfo(on(2027,1,3)).label).toBe('Happy holidays');
+    expect(christmasInfo(on(2027,1,6)).active).toBe(true);
+  });
+  it('is off outside the season',()=>{
+    expect(christmasInfo(on(2026,10,31))).toEqual({active:false,daysLeft:null,label:''});
+    expect(christmasInfo(on(2027,1,7)).active).toBe(false);
+    expect(christmasInfo(on(2026,6,15)).active).toBe(false);
+  });
+});
+
+describe('themeFromSearch',()=>{
+  it('uses the calendar by default',()=>{
+    expect(themeFromSearch('',new Date(2026,10,5))).toBe('christmas');
+    expect(themeFromSearch('',new Date(2026,5,5))).toBe('normal');
+  });
+  it('can be previewed or switched off from the link',()=>{
+    expect(themeFromSearch('?theme=christmas',new Date(2026,5,5))).toBe('christmas');
+    expect(themeFromSearch('?theme=normal',new Date(2026,11,20))).toBe('normal');
+    expect(themeFromSearch('?theme=halloween',new Date(2026,11,20))).toBe('christmas');
+  });
+});
 
 const at=(hour,minute=0)=>new Date(2026,10,5,hour,minute);
 

@@ -1,7 +1,8 @@
 import {useEffect,useState} from 'react';
-import {Moon,Sun,Sunrise} from 'lucide-react';
+import {Moon,Snowflake,Sun,Sunrise} from 'lucide-react';
 import {attentionCount} from './overview';
-import {greetings,sceneFromSearch} from './timeOfDay';
+import {christmasScenes} from './ChristmasScenes';
+import {christmasInfo,greetings,sceneFromSearch,themeFromSearch} from './timeOfDay';
 
 const icons={morning:Sunrise,afternoon:Sun,evening:Moon};
 const plural=(count,one,many)=>`${count} ${count===1?one:many}`;
@@ -63,8 +64,11 @@ const scenes={
 
 // The top of the Dashboard: a time-of-day scene, a greeting and your name. Chips appear only when something needs attention.
 export default function DashboardBanner({name,alerts,onGo}){
-  const [scene,setScene]=useState(()=>sceneFromSearch(location.search));
-  useEffect(()=>{const timer=setInterval(()=>setScene(sceneFromSearch(location.search)),60000);return()=>clearInterval(timer)},[]);
+  const [now,setNow]=useState(()=>new Date());
+  useEffect(()=>{const timer=setInterval(()=>setNow(new Date()),60000);return()=>clearInterval(timer)},[]);
+  const scene=sceneFromSearch(location.search,now),theme=themeFromSearch(location.search,now),christmas=theme==='christmas';
+  // Preview links (?theme=christmas) show the countdown as if it were the season.
+  const festive=christmasInfo(now).active?christmasInfo(now):{label:'Merry Christmas'};
   const Icon=icons[scene];
   const items=[
     {key:'low',count:alerts.lowStock,text:plural(alerts.lowStock,'low-stock item','low-stock items'),page:'Inventory of Raw Materials'},
@@ -73,8 +77,9 @@ export default function DashboardBanner({name,alerts,onGo}){
     {key:'price',count:alerts.unsavedPrice,text:plural(alerts.unsavedPrice,'price not saved','prices not saved'),page:'Costing'}
   ].filter(item=>item.count>0);
   const showChips=attentionCount(alerts)>0||alerts.inProgress>0;
-  return <section className={`dashboard-banner scene-${scene}`} aria-label={`${greetings[scene]}, ${name||'welcome'}`}>
-    {scenes[scene]}
+  return <section className={`dashboard-banner scene-${scene}${christmas?' theme-christmas':''}`} aria-label={`${greetings[scene]}, ${name||'welcome'}`}>
+    {(christmas?christmasScenes:scenes)[scene]}
+    {christmas&&<p className="banner-festive"><Snowflake size={14} aria-hidden="true"/> {festive.label}</p>}
     <div className="banner-text">
       <p className="banner-greeting"><Icon size={18} aria-hidden="true"/> {greetings[scene]}</p>
       <h2 className="banner-name">{name||'Celestine Studio'}</h2>
