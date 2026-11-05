@@ -12,14 +12,14 @@ function Bar({label,stage}){
 }
 
 // Maceration, maturation and overall aging. Every number comes from the dates, so nothing here is stored.
-export default function AgingBars({view,compact=false}){
+// parts: "all" shows overall aging first, then maceration, then maturation. "overall" or "stages" shows just that part.
+export default function AgingBars({view,compact=false,parts='all'}){
   return <div className={`aging-bars${compact?' is-compact':''}`}>
-    <Bar label="Maceration" stage={view.maceration}/>
-    <Bar label="Maturation" stage={view.maturation}/>
-    <div className="ab-stage ab-overall">
+    {parts!=='stages'&&<div className="ab-stage ab-overall">
       <div className="ab-stage-head"><strong>Overall aging</strong><span>{view.overall.percent}%</span></div>
       <div className="timeline-bar"><i style={{width:`${view.overall.percent}%`}}/></div>
       <div className="ab-stage-meta"><small>Stage: {view.overall.stage}</small><small>Ready {formatDay(view.overall.expectedReadyDate)}</small></div>
-    </div>
+    </div>}
+    {parts!=='overall'&&<><Bar label="Maceration" stage={view.maceration}/><Bar label="Maturation" stage={view.maturation}/></>}
   </div>;
 }

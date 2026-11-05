@@ -1,5 +1,5 @@
 import {useMemo,useState} from 'react';
-import {Archive,Eye,Pencil,Plus,RefreshCw,Search} from 'lucide-react';
+import {Archive,ChevronDown,Eye,Pencil,Plus,RefreshCw,Search} from 'lucide-react';
 import {calculate,num,uid} from './logic';
 import {snapshotPricing} from './pricing';
 import {deductSuppliesForBatch,stockDiffEntries} from './stock';
@@ -13,6 +13,8 @@ const Counter=({label,value,tone})=><div className={`bc-counter bc-${tone}`}><st
 
 export default function ProductionBatches({data,by='Local workspace',onChange,onNotice}){
   const [view,setView]=useState({mode:'list'}),[query,setQuery]=useState(''),[scent,setScent]=useState('all'),[stage,setStage]=useState('active');
+  const [open,setOpen]=useState(()=>new Set());
+  const toggle=id=>setOpen(current=>{const next=new Set(current);if(next.has(id))next.delete(id);else next.add(id);return next});
   const today=localDate();
   const counts=useMemo(()=>agingCounts(data.batches,today),[data.batches,today]);
   const names=[...new Set(data.batches.map(batch=>batch.name||'Untitled'))].sort((a,b)=>a.localeCompare(b));
@@ -72,15 +74,19 @@ export default function ProductionBatches({data,by='Local workspace',onChange,on
       <select aria-label="Scent" value={names.includes(scent)?scent:'all'} onChange={event=>setScent(event.target.value)}><option value="all">All scents</option>{names.map(name=><option key={name} value={name}>{name}</option>)}</select>
       <select aria-label="Aging status" value={stage} onChange={event=>setStage(event.target.value)}><option value="active">All active</option><option value="all">Everything</option>{agingStatuses.map(item=><option key={item} value={item}>{item}</option>)}</select>
     </div>}
-    {shown.length?<div className="production-list">{shown.map(({batch,aging})=><article className="production-record bc-row" key={batch.id}>
-      <div className="production-record-head"><div><span>Batch ID <b>{batch.batchNumber}</b></span><strong>{batch.name}</strong><small>Produced {formatDay(batch.date)} · {num(batch.actualYield)} ml</small></div><span className={`aging-pill ${statusClass(aging.status)}`}>{aging.status}</span></div>
-      <AgingBars view={aging} compact/>
-      <div className="bc-actions">
+    {shown.length?<div className="production-list">{shown.map(({batch,aging})=>{const isOpen=open.has(batch.id);return <article className={`production-record bc-row${isOpen?' is-open':''}`} key={batch.id}>
+      <button type="button" className="bc-summary" aria-expanded={isOpen} onClick={()=>toggle(batch.id)}>
+        <span className="bc-summary-top"><strong>{batch.name}</strong><span className={`aging-pill ${statusClass(aging.status)}`}>{aging.status}</span><ChevronDown size={16} className="bc-chevron" aria-hidden="true"/></span>
+        <AgingBars view={aging} compact parts="overall"/>
+      </button>
+      {isOpen&&<><div className="bc-meta"><span>Batch ID <b>{batch.batchNumber}</b></span><span>Produced {formatDay(batch.date)} · {num(batch.actualYield)} ml</span></div>
+      <AgingBars view={aging} compact parts="stages"/></>}
+      {isOpen&&<div className="bc-actions">
         <button type="button" className="btn" onClick={()=>setView({mode:'detail',id:batch.id})}><Eye size={14}/> View</button>
         <button type="button" className="btn" onClick={()=>setView({mode:'edit',id:batch.id})}><Pencil size={14}/> Edit</button>
         <button type="button" className="btn" onClick={()=>setView({mode:'detail',id:batch.id,focus:'update'})}><RefreshCw size={14}/> Update</button>
         <button type="button" className="btn" onClick={()=>act(batch,aging.status==='Archived'?'unarchive':'archive',{by})}><Archive size={14}/> {aging.status==='Archived'?'Restore':'Archive'}</button>
-      </div>
-    </article>)}</div>:<p className="empty">{data.batches.length?'No batches match your search or filters.':'Add a batch to track its maceration, maturation and expected ready date.'}</p>}
+      </div>}
+    </article>})}</div>:<p className="empty">{data.batches.length?'No batches match your search or filters.':'Add a batch to track its maceration, maturation and expected ready date.'}</p>}
   </section>;
 }

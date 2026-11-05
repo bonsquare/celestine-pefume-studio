@@ -32,7 +32,7 @@ export default function BatchForm({data,batch,onSave,onCancel}){
   const pickScent=id=>{const next=data.formulas.find(item=>item.id===id);set({formulaId:id,actualYield:next?String(Math.round(calculate(next,data).volume*100)/100):f.actualYield})};
   return <section className="card batch-form">
     <div className="card-head"><div><p className="eyebrow">{editing?'EDIT BATCH':'NEW BATCH'}</p><h2>{editing?batch.batchNumber:'Add New Batch'}</h2></div><button type="button" className="btn" onClick={onCancel}><ArrowLeft size={15}/> Back</button></div>
-    <div className="bf-group"><h3>Batch information</h3>
+    <details className="bf-group" open={!editing}><summary><h3>Batch information</h3><small>{name||'No scent chosen'} · {formatDay(f.date)} · {num(f.actualYield)} ml</small></summary>
       <div className="bf-grid">
         <label className="bf-wide"><span>Batch number</span><input value={editing?batch.batchNumber:'Assigned automatically when saved'} disabled/></label>
         {editing
@@ -45,15 +45,15 @@ export default function BatchForm({data,batch,onSave,onCancel}){
         <label><span>Actual yield (ml)</span><input type="number" min="0" step="any" inputMode="decimal" value={f.actualYield} onChange={event=>set({actualYield:event.target.value})}/></label>
         <label className="bf-wide"><span>Production notes (optional)</span><textarea rows="2" value={f.notes} onChange={event=>set({notes:event.target.value})}/></label>
       </div>
-    </div>
-    <div className="bf-group"><h3>Maceration</h3>
+    </details>
+    <details className="bf-group" open={!editing}><summary><h3>Maceration</h3><small>{formatDay(schedule.macerationStart)} → {formatDay(schedule.macerationDate)}</small></summary>
       <div className="bf-grid">
         <label><span>Start date</span><input type="date" value={f.macerationStart||f.date} min={f.date||undefined} onChange={event=>set({macerationStart:event.target.value})}/></label>
         <label><span>Duration (days)</span><input type="number" min="1" step="1" inputMode="numeric" value={f.macerationDays} onChange={event=>set({macerationDays:event.target.value})}/></label>
         <div className="bf-readout bf-wide"><span>End date</span><strong>{formatDay(schedule.macerationDate)}</strong></div>
       </div>
-    </div>
-    <div className="bf-group"><h3>Maturation</h3>
+    </details>
+    <details className="bf-group" open={!editing}><summary><h3>Maturation</h3><small>{formatDay(schedule.maturationStart)} → {formatDay(schedule.maturationDate)}</small></summary>
       <div className="bf-grid">
         <label><span>Start date {!f.maturationStart&&<em>(day after maceration)</em>}</span><input type="date" value={f.maturationStart||schedule.maturationStart||''} onChange={event=>set({maturationStart:event.target.value})}/></label>
         <label><span>Duration (days)</span><input type="number" min="1" step="1" inputMode="numeric" value={f.maturationDays} onChange={event=>set({maturationDays:event.target.value})}/></label>
@@ -61,7 +61,7 @@ export default function BatchForm({data,batch,onSave,onCancel}){
       </div>
       {f.maturationStart&&<button type="button" className="btn bf-reset" onClick={()=>set({maturationStart:''})}>Start the day after maceration ends</button>}
       <label className="bf-check"><input type="checkbox" checked={override} onChange={event=>setOverride(event.target.checked)}/> Allow maturation to start before maceration ends (override)</label>
-    </div>
+    </details>
     <div className="bf-summary" aria-label="Schedule summary">
       <div><span>Total aging days</span><strong>{totalDays}</strong></div>
       <div><span>Maceration</span><strong>{formatDay(schedule.macerationStart)} → {formatDay(schedule.macerationDate)}</strong></div>
