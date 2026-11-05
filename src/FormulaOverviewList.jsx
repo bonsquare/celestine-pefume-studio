@@ -9,7 +9,7 @@ function FormulaOverviewCard({formula,data,isCurrent,onManage}){
   const overview=useMemo(()=>formulaOverview(formula,calculate(formula,data)),[formula,data]);
   return <section className={`card formula-overview-card${isCurrent?' current':''}`}>
     <div className="formula-overview-head">
-      <div className="formula-overview-title"><strong className="dashboard-formula-name">{formula.name}</strong>{isCurrent&&<span className="current-tag">Current</span>}</div>
+      <div className="formula-overview-title"><strong className="dashboard-formula-name">{formula.name}</strong>{formula.code&&<span className="formula-code-tag">{formula.code}</span>}{isCurrent&&<span className="current-tag">Current</span>}</div>
       <button type="button" className="dashboard-text-action" onClick={()=>onManage(formula)}>Manage</button>
     </div>
     {!overview.hasBottle&&<p className="overview-note">Choose a bottle size in Costing to see the cost per finished bottle and the suggested price.</p>}

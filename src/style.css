@@ -834,3 +834,8 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .record-tags{display:flex;flex-wrap:wrap;gap:5px;margin:3px 0 2px}
 .record-tags .record-tag{margin-left:0}
 #root .pricing-history-card strong{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
+
+/* Formula ID */
+.formula-id{font-weight:700;letter-spacing:.04em;color:#ffffffcc}
+.formula-code-tag{flex:none;margin-left:6px;padding:1px 8px;border-radius:6px;background:#eef1f9;color:#46526f;font-size:.64rem;font-weight:800;letter-spacing:.05em;vertical-align:middle;font-family:ui-monospace,Menlo,Consolas,monospace}
+.record-id{display:block;font-weight:800;letter-spacing:.05em;color:#46526f;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.66rem}

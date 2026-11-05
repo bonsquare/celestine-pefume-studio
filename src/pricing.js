@@ -46,6 +46,14 @@ export function calculatePricingTiers(cost,quantity,tiers){
  return list.map((tier,index)=>({...tier,result:results[index]}));
 }
 
+// Save once per formula: saving again replaces that formula's latest saved price instead of adding another copy.
+// The record keeps its id and position; older records (from before this rule) are left alone.
+export function upsertPriceRecord(history,record){
+ const list=history||[],last=list.at(-1);
+ if(!last)return {history:[record],updated:false};
+ return {history:[...list.slice(0,-1),{...record,id:last.id}],updated:true};
+}
+
 // The structure to apply: Retail is a fixed price, and the other tiers are a set % below Retail,
 // each with a minimum-margin floor. Names, ids, bottle costs and saved history are untouched.
 export const structureDiscounts=[0,15,25,35];

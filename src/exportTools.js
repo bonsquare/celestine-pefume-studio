@@ -23,10 +23,10 @@ export const batchesCsv=data=>toCsv(
 );
 
 export const formulasCsv=data=>toCsv(
-  ['Formula','Scent name','Inspired by','Ingredient','Percentage','Updated'],
+  ['Formula ID','Formula','Scent name','Inspired by','Ingredient','Percentage','Updated'],
   (data.formulas||[]).flatMap(formula=>(formula.ingredients||[]).map(row=>{
     const material=(data.ingredients||[]).find(item=>item.id===row.materialId);
-    return [formula.name,formula.scentName,formula.inspiredBy,material?.name||row.name,num(row.percentage),formula.updatedAt?String(formula.updatedAt).slice(0,10):''];
+    return [formula.code,formula.name,formula.scentName,formula.inspiredBy,material?.name||row.name,num(row.percentage),formula.updatedAt?String(formula.updatedAt).slice(0,10):''];
   }))
 );
 

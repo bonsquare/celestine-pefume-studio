@@ -27,8 +27,8 @@ describe('csv export',()=>{
     const batches=batchesCsv({batches:[{batchNumber:'B-1',name:'Cloud',date:'2026-11-05',status:'Completed',bottles:10,expectedYield:500,actualYield:480,productionCost:1318,costPerBottle:131.8,projectedGrossProfit:1000,inventoryDeducted:true}]});
     expect(batches.split('\r\n')[1]).toContain('B-1,Cloud,2026-11-05,Completed');
     expect(batches).toContain('Yes');
-    const formulas=formulasCsv({ingredients:[{id:'i1',name:'Oil'}],formulas:[{name:'F',scentName:'Dream Mist',inspiredBy:'Cloud - Ariana Grande',updatedAt:'2026-11-05T01:00:00Z',ingredients:[{materialId:'i1',percentage:20}]}]});
-    expect(formulas.split('\r\n')[1]).toBe('F,Dream Mist,Cloud - Ariana Grande,Oil,20,2026-11-05');
+    const formulas=formulasCsv({ingredients:[{id:'i1',name:'Oil'}],formulas:[{code:'F-0001',name:'F',scentName:'Dream Mist',inspiredBy:'Cloud - Ariana Grande',updatedAt:'2026-11-05T01:00:00Z',ingredients:[{materialId:'i1',percentage:20}]}]});
+    expect(formulas.split('\r\n')[1]).toBe('F-0001,F,Dream Mist,Cloud - Ariana Grande,Oil,20,2026-11-05');
   });
   it('handles empty data',()=>{
     expect(materialsCsv({}).split('\r\n')).toHaveLength(1);
