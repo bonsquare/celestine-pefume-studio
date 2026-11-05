@@ -803,3 +803,14 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 #root .pricing-quantity .field-hint{margin:0;width:100%}
 #root .pricing-quantity{max-width:none;flex:1 1 auto}
 #root .pricing-quantity>.field{max-width:none;width:100%}
+
+/* Price structure and safety net panel */
+.structure-panel{margin:.6rem 16px;border:1px solid #dfe6f3;border-radius:14px;background:#f8faff;padding:.4rem .7rem}
+.structure-panel summary{display:flex;align-items:center;justify-content:space-between;gap:.5rem;min-height:34px;cursor:pointer;list-style:none;font-size:.82rem;font-weight:750;color:#293b75}
+.structure-panel summary::-webkit-details-marker{display:none}
+.structure-panel summary::after{content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+.structure-panel[open] summary::after{transform:rotate(-135deg) translateY(-1px)}
+.structure-panel p{margin:.2rem 0 .6rem;font-size:.76rem;line-height:1.5;color:#4a5778}
+.structure-row{display:flex;align-items:flex-end;gap:.6rem;flex-wrap:wrap}
+.structure-row .field{flex:1 1 140px;max-width:200px}
+.structure-note{margin:.6rem 0 .2rem!important;padding:.45rem .6rem;border-radius:10px;background:#e6f7ee;color:#136b3f!important;font-size:.78rem}
