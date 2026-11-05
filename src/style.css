@@ -741,3 +741,10 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .formula-overview-title .dashboard-formula-name{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .current-tag{flex:none;padding:1px 8px;border-radius:999px;background:#e8edff;color:#3f55c7;font-size:.62rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
 .formula-overview-more{justify-self:center}
+
+/* Formula card details: one aligned column beside the avatar */
+#root .formula-library .saved-formula-name{align-items:flex-start}
+#root .formula-library .saved-formula-name>div{display:grid;gap:2px;min-width:0;flex:1}
+#root .formula-library .saved-formula-name>span{margin-top:1px}
+#root .formula-library .saved-formula-name small{font-size:.72rem;line-height:1.35}
+#root .formula-library .saved-formula-stats{margin:3px 0 0;padding-top:4px;border-top:1px dashed #e0e6f4}
