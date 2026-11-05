@@ -754,3 +754,19 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 #root .formula-library .saved-formula-actions .btn,#root .formula-library .saved-formula-actions .icon-button{height:34px;min-height:34px;border-radius:10px}
 #root .formula-library .saved-formula-actions .icon-button{width:34px;padding:0}
 #root .formula-library .saved-formula-actions .icon-button svg,#root .formula-library .saved-formula-actions .btn svg{width:16px;height:16px}
+
+/* Costing step 1: operating costs and totals */
+#root .cost-sheet-expense{padding:.55rem 0;border-bottom:1px solid #eef1f9}
+#root .cost-sheet-expense:last-of-type{border-bottom:0}
+#root .cost-sheet-expense>span:first-child{font-weight:650;color:#293b75}
+#root .cost-sheet-expense-input{width:150px;flex:none;border-radius:12px}
+#root .cost-sheet-expense-input input{text-align:right;font-weight:700}
+#root .add-cost-row{width:100%;justify-content:center;border-style:dashed;margin-top:.5rem}
+.perfume-totals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;padding:.7rem 16px 1rem}
+.perfume-total{display:grid;gap:2px;align-content:start;padding:.65rem .7rem;border:1px solid #dfe6f3;border-radius:14px;background:#f8faff}
+.perfume-total span{font-size:.62rem;font-weight:750;text-transform:uppercase;letter-spacing:.06em;color:#7a859c}
+.perfume-total strong{font-size:1rem;line-height:1.2;color:#293b75;overflow-wrap:anywhere}
+.perfume-total small{font-size:.66rem;line-height:1.3;color:#7a859c}
+.perfume-total.primary{background:#eaf8f1;border-color:#bfe6d1}
+.perfume-total.primary strong{font-size:1.15rem;color:#136b3f}
+@media(max-width:480px){.perfume-totals{grid-template-columns:1fr 1fr}.perfume-total.primary{grid-column:1/-1}}
