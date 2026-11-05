@@ -609,7 +609,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 @media(max-width:560px){
   .pricing-hero{grid-template-columns:minmax(0,1fr)}
   .pricing-hero-main strong{font-size:1.7rem}
-  .pricing-tier summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem .6rem}
+  .pricing-tier summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem .5rem}
   .pricing-tier summary strong{grid-column:1/-1}
   .pricing-tier summary>span[data-label]{display:grid;gap:1px;text-align:left}
   .pricing-tier summary>span[data-label]::before{content:attr(data-label);font-size:.6rem;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:#7a859c}
