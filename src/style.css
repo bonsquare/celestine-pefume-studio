@@ -326,3 +326,19 @@ body{background:radial-gradient(circle at 12% 4%,#e9ecff 0,transparent 27rem),ra
 .version-diff .diff-removed td,.version-diff .diff-removed td:last-child{color:#a12a2a}
 .version-diff .diff-same td{color:#7a859c}
 @media print{.formula-notes-panel{display:none!important}}
+
+/* Formula library toolbar and empty state */
+.formula-library-tools{grid-template-columns:minmax(0,1fr) minmax(150px,.38fr);gap:.65rem .6rem;padding:.85rem 1.1rem}
+.formula-library-tools .tool-search input{width:100%}
+.status-chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:.4rem}
+.status-chips button{display:inline-flex;align-items:center;gap:.4rem;min-height:32px;padding:.25rem .7rem;border:1px solid #d6dff0;border-radius:999px;background:#fff;color:#4a5778;font:inherit;font-size:.72rem;font-weight:700;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.status-chips button:hover{background:#f3f6ff;border-color:#b9c6e6}
+.status-chips button:focus-visible{outline:2px solid #3457d5;outline-offset:2px}
+.status-chips button small{min-width:18px;padding:1px 6px;border-radius:999px;background:#eef1f9;color:#5a6788;font-size:.64rem;font-weight:800;text-align:center}
+.status-chips button.active{background:#3457d5;border-color:#3457d5;color:#fff}
+.status-chips button.active small{background:#ffffff30;color:#fff}
+.library-empty{display:grid;justify-items:center;gap:.5rem;margin:1rem 1.1rem 1.2rem;padding:2rem 1.2rem;border:1.5px dashed #cfd9ee;border-radius:18px;background:linear-gradient(180deg,#f9faff,#f3f7ff);text-align:center}
+.library-empty-icon{display:grid;place-items:center;width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,#e6ebff,#efe6ff);color:#3f55c7}
+.library-empty h3{margin:.2rem 0 0;font-size:1rem;color:#293b75}
+.library-empty p{margin:0 0 .5rem;max-width:34ch;font-size:.8rem;line-height:1.5;color:#5d6a83}
+@media(max-width:560px){.formula-library-tools{grid-template-columns:minmax(0,1fr) 135px;padding:.75rem .9rem}.library-empty{margin:.8rem .9rem 1rem;padding:1.6rem 1rem}}
