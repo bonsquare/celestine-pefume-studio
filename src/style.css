@@ -450,3 +450,28 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   .inventory-group-head{grid-template-columns:auto minmax(0,1fr)}
   .inventory-group-totals{grid-column:1/-1;text-align:left;display:flex;gap:10px;align-items:baseline}
 }
+
+/* Inventory header and summary tiles */
+.inventory-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.9rem}
+.inventory-title{min-width:0}
+.inventory-title h2{margin:.15rem 0 0;line-height:1.2}
+.inventory-sub{margin:.4rem 0 0;font-size:.76rem;line-height:1.45;color:#61708b;max-width:46ch}
+.inventory-add{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;min-height:40px;padding:.5rem 1rem;font-size:.82rem;border-radius:12px;box-shadow:0 6px 16px #3457d533}
+.inventory-stats{gap:.65rem}
+.inventory-stat{position:relative;display:grid;align-content:start;gap:2px;padding:.75rem .8rem;border:1px solid #dfe6f3;border-radius:16px;background:linear-gradient(180deg,#fff,#f6f8ff)}
+.inventory-stat .stat-icon{display:grid;place-items:center;width:30px;height:30px;margin-bottom:6px;border-radius:10px;background:#e8edff;color:#3f55c7}
+.inventory-stat .stat-label{font-size:.64rem;font-weight:750;text-transform:uppercase;letter-spacing:.06em;color:#7a859c}
+.inventory-stat strong{font-size:1.1rem;line-height:1.2;color:#293b75;overflow-wrap:anywhere}
+.inventory-stat .stat-dot::before{content:"";width:10px;height:10px;border-radius:50%;background:#2fa56b}
+.inventory-stat.ok .stat-icon{background:#dcf5e8}
+.inventory-stat.warn{background:linear-gradient(180deg,#fff,#fff4f1);border-color:#f3cfc5}
+.inventory-stat.warn .stat-icon{background:#fde1da}
+.inventory-stat.warn .stat-dot::before{background:#d6492b}
+.inventory-stat.warn strong{color:#b2381d}
+@media(max-width:560px){
+  .inventory-head{flex-direction:column;align-items:stretch}
+  .inventory-add{width:100%}
+  .inventory-stats{gap:.45rem}
+  .inventory-stat{padding:.65rem .6rem}
+  .inventory-stat strong{font-size:.98rem}
+}
