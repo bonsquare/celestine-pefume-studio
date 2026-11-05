@@ -748,3 +748,9 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 #root .formula-library .saved-formula-name>span{margin-top:1px}
 #root .formula-library .saved-formula-name small{font-size:.72rem;line-height:1.35}
 #root .formula-library .saved-formula-stats{margin:3px 0 0;padding-top:4px;border-top:1px dashed #e0e6f4}
+
+/* Formula card: no avatar letter, tidy action buttons */
+#root .formula-library .saved-formula-actions{display:flex;flex-direction:row;align-items:center;align-self:center;gap:.4rem;flex:none}
+#root .formula-library .saved-formula-actions .btn,#root .formula-library .saved-formula-actions .icon-button{height:34px;min-height:34px;border-radius:10px}
+#root .formula-library .saved-formula-actions .icon-button{width:34px;padding:0}
+#root .formula-library .saved-formula-actions .icon-button svg,#root .formula-library .saved-formula-actions .btn svg{width:16px;height:16px}
