@@ -7,6 +7,9 @@ import{loadData,saveData,supabaseConfigured}from'./storage';
 import {dashboardAlerts,formulaOverview,latestFormula} from './overview';
 import DashboardBanner from './DashboardBanner';
 import BatchTracker from './BatchTracker';
+import ThemePicker from './ThemePicker';
+import {applyTheme,defaultTheme,isTheme,readStoredTheme} from './themes';
+import './themes.css';
 import {syncProductionStatuses} from './aging';
 import FormulaOverviewList from './FormulaOverviewList';
 import MoreSheet from './MoreSheet';
@@ -46,6 +49,10 @@ function App({user,isMaster=false}){const[data,setData]=useState(null),[page,set
  useEffect(()=>{try{if(selected)localStorage.setItem(selectedFormulaKey,selected)}catch{}},[selected]);
  // An app shortcut opens /?page=Costing. Tidy the address bar once the page is chosen.
  useEffect(()=>{if(location.search.includes('page='))history.replaceState(null,'',location.pathname)},[]);
+ // The color theme: your saved choice (synced with your data) wins; this device's last choice shows until data loads.
+ const theme=isTheme(data?.settings?.theme)?data.settings.theme:readStoredTheme()||defaultTheme;
+ useEffect(()=>{applyTheme(theme)},[theme]);
+ const chooseTheme=id=>{applyTheme(id);setData(current=>({...current,settings:{...current.settings,theme:id}}))};
  // Maceration and maturation are marked done on their own when their dates arrive, and the batch status moves forward.
  const loaded=Boolean(data);
  useEffect(()=>{if(!loaded)return;const run=()=>setData(d=>{const next=syncProductionStatuses(d.batches||[]);return next===d.batches?d:{...d,batches:next}});run();const timer=setInterval(run,60000);return()=>clearInterval(timer)},[loaded]);
@@ -65,7 +72,7 @@ function App({user,isMaster=false}){const[data,setData]=useState(null),[page,set
  {page==='Batches'&&<ProductionBatches data={data} by={user?.email||'Local workspace'} onChange={setData} onNotice={setNotice}/>} 
  {page==='Inventory of Raw Materials'&&<Inventory data={data} onChange={setData} onNotice={setNotice}/>}
  {page==='Raw Material Registration'&&<RawMaterials data={data} edit={edit}/>}
- {page==='Settings'&&<><UserSettings user={user} localProfile={data.settings?.profile} onLocalUpdate={profile=>setData(current=>({...current,settings:{...current.settings,profile}}))}/>{isMaster&&<AccessManagement/>}<InstallApp/><DataBackup data={data}synced={supabaseConfigured} onRestore={restored=>{setData(restored);setSelected(null)}}/>{user&&<section className="card signout-card"><Button onClick={()=>signOut().catch(err=>setNotice(err.message))}><LogOut size={16}/> Sign out</Button></section>}</>}
+ {page==='Settings'&&<><ThemePicker value={theme} onChange={chooseTheme}/><UserSettings user={user} localProfile={data.settings?.profile} onLocalUpdate={profile=>setData(current=>({...current,settings:{...current.settings,profile}}))}/>{isMaster&&<AccessManagement/>}<InstallApp/><DataBackup data={data}synced={supabaseConfigured} onRestore={restored=>{setData(restored);setSelected(null)}}/>{user&&<section className="card signout-card"><Button onClick={()=>signOut().catch(err=>setNotice(err.message))}><LogOut size={16}/> Sign out</Button></section>}</>}
  </main></div><nav className="bottom-nav" aria-label="Mobile navigation">{primary.map(([p,Icon])=><button key={p} className={page===p?'active':''} onClick={()=>navigate(p)}><Icon size={22}/><span>{p}</span></button>)}<button className={more||!primary.some(([p])=>p===page)?'active':''} onClick={()=>setMore(true)}><Menu size={22}/><span>More</span></button></nav>{more&&<MoreSheet pages={pages.slice(4)} onNavigate={navigate} onClose={()=>setMore(false)}/>} {notice&&<div className="toast" role="status">{notice}<button onClick={()=>setNotice('')} aria-label="Dismiss message">×</button></div>}{update&&<div className="update" role="status"><span>A new version is ready.</span><Button variant="primary" onClick={()=>update(true)}><RefreshCw size={17}/> Update</Button></div>}</div>
 }
 function Editor({data,edit,kind}){const items=data[kind]||[];const unit=kind==='ingredients'||kind==='packaging';const library=kind==='ingredients';const field=unit?'unitCost':'amount';const change=(id,patch)=>edit(kind,items.map(x=>x.id===id?{...x,...patch}:x));return <div className="editor">{items.map(x=><div className="edit-row" key={x.id}><Field label="Name"><input value={x.name} onChange={e=>change(x.id,{name:e.target.value})}/></Field><Field label={unit?'Unit cost':'Amount'} unit="₱"><Input value={x[field]} onChange={v=>change(x.id,{[field]:v})}/></Field>{library&&<Field label="Density" unit="g/mL"><Input value={x.density} onChange={v=>change(x.id,{density:v})}/></Field>}<button aria-label={`Remove ${x.name}`} onClick={()=>{if(confirm(`Delete “${x.name}”?`))edit(kind,items.filter(i=>i.id!==x.id))}}><Trash2 size={18}/></button></div>)}<Button onClick={()=>edit(kind,[...items,{id:uid(),name:'New item',[field]:0,...(library?{density:1}:{})}])}><Plus size={18}/> Add {kind==='ingredients'?'ingredient':'expense'}</Button></div>}

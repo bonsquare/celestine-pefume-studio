@@ -1,0 +1,105 @@
+/* Theme variables. Every color in style.css comes from these. The default is Soft Pastel. */
+:root,html[data-theme="pastel"]{
+  --t-page:linear-gradient(165deg,#f4eeff 0%,#fdeef5 48%,#eaf8f1 100%);
+  --t-card:#ffffff;--t-card-a:#ffffffd9;--t-glass:#ffffffcc;
+  --t-ink:#2f2d58;--t-ink2:#4d4a96;--t-ink3:#6a6690;--t-muted:#76729a;
+  --t-brand:#8b93f2;--t-brand2:#b69af2;
+  --t-btn:linear-gradient(135deg,#8b93f2,#b69af2);--t-btn-ink:#ffffff;
+  --t-soft:#fbf8ff;--t-tint:#efeaff;--t-line:#e8e2f5;--t-line2:#cfc8f0;
+  --t-chip:#8b93f2;--t-chip-ink:#ffffff;
+  --t-c-total:#f1edff;--t-c-mac:#fff1e6;--t-c-mat:#eaf4ff;--t-c-ready:#eafaf1;--t-c-hold:#fff0f4;
+}
+html[data-theme="steel"]{
+  --t-page:linear-gradient(170deg,#08101d 0%,#0d1a2e 55%,#101f36 100%);
+  --t-card:#111d31;--t-card-a:#111d31ee;--t-glass:#0d1829e6;
+  --t-ink:#e8eefb;--t-ink2:#cfe0ff;--t-ink3:#a9bcdb;--t-muted:#8499b9;
+  --t-brand:#4fb3ff;--t-brand2:#7fc8ff;
+  --t-btn:linear-gradient(135deg,#ff8a50,#e8501a);--t-btn-ink:#ffffff;
+  --t-soft:#0e1829;--t-tint:#182942;--t-line:#223450;--t-line2:#324b6d;
+  --t-chip:#4fb3ff;--t-chip-ink:#06111f;
+  --t-c-total:#16283f;--t-c-mac:#2b2218;--t-c-mat:#12304d;--t-c-ready:#12352c;--t-c-hold:#34202a;
+}
+html[data-theme="dusk"]{
+  --t-page:linear-gradient(165deg,#15375a 0%,#254a76 45%,#4a4a82 100%);
+  --t-card:#1d4069;--t-card-a:#1d4069ee;--t-glass:#173a5ee6;
+  --t-ink:#f2f7ff;--t-ink2:#dbe8ff;--t-ink3:#b6cbe8;--t-muted:#98b2d4;
+  --t-brand:#f5b942;--t-brand2:#ffd27a;
+  --t-btn:linear-gradient(135deg,#ffd36b,#f59a45);--t-btn-ink:#3a2400;
+  --t-soft:#1a3b61;--t-tint:#2a5282;--t-line:#34608f;--t-line2:#4a77a8;
+  --t-chip:#f5b942;--t-chip-ink:#3a2400;
+  --t-c-total:#26507f;--t-c-mac:#4a4156;--t-c-mat:#1f5a86;--t-c-ready:#1f5d62;--t-c-hold:#59405f;
+}
+html[data-theme="aurora"]{
+  --t-page:linear-gradient(160deg,#3a3f9c 0%,#5a3fa8 50%,#2a9fb5 100%);
+  --t-card:#4a4aaa;--t-card-a:#4a4aaaee;--t-glass:#40409cee;
+  --t-ink:#ffffff;--t-ink2:#f0ecff;--t-ink3:#d6d0fb;--t-muted:#bcb6ef;
+  --t-brand:#2ee6d0;--t-brand2:#8cf5e6;
+  --t-btn:linear-gradient(135deg,#ff7aa8,#b45cf0);--t-btn-ink:#ffffff;
+  --t-soft:#4343a4;--t-tint:#5a55b8;--t-line:#6a64c6;--t-line2:#8680da;
+  --t-chip:#2ee6d0;--t-chip-ink:#10305a;
+  --t-c-total:#5b57ba;--t-c-mac:#a35aa8;--t-c-mat:#3b79c4;--t-c-ready:#2c9aa8;--t-c-hold:#c0589a;
+}
+html[data-theme="grove"]{
+  --t-page:linear-gradient(170deg,#e9f8f0 0%,#f4fbf7 60%,#fbf6e8 100%);
+  --t-card:#ffffff;--t-card-a:#ffffffee;--t-glass:#ffffffd9;
+  --t-ink:#0c3b2e;--t-ink2:#0c3b2e;--t-ink3:#3d6a58;--t-muted:#5c8571;
+  --t-brand:#6d9773;--t-brand2:#8fb496;
+  --t-btn:linear-gradient(135deg,#6d9773,#4f8060);--t-btn-ink:#ffffff;
+  --t-soft:#f2fbf6;--t-tint:#e0efe6;--t-line:#d3e5da;--t-line2:#b5d1bf;
+  --t-chip:#0c3b2e;--t-chip-ink:#ffffff;
+  --t-c-total:#e0efe6;--t-c-mac:#fbe9d2;--t-c-mat:#e6f1e9;--t-c-ready:#dff2e6;--t-c-hold:#fdeccf;
+}
+html[data-theme="plum"]{
+  --t-page:linear-gradient(170deg,#2a2646 0%,#312c51 55%,#38325c 100%);
+  --t-card:#48426d;--t-card-a:#48426dee;--t-glass:#3b3660ee;
+  --t-ink:#f4f0ff;--t-ink2:#e4ddfb;--t-ink3:#c6bde9;--t-muted:#a9a0d0;
+  --t-brand:#f0c38e;--t-brand2:#f7d9b4;
+  --t-btn:linear-gradient(135deg,#f0c38e,#f1aa9b);--t-btn-ink:#312c51;
+  --t-soft:#3b3660;--t-tint:#544e7c;--t-line:#5b5584;--t-line2:#766fa3;
+  --t-chip:#f0c38e;--t-chip-ink:#312c51;
+  --t-c-total:#544e7c;--t-c-mac:#6a5670;--t-c-mat:#4a5a86;--t-c-ready:#3f6a68;--t-c-hold:#7a5576;
+}
+
+/* Page and surfaces */
+body{background:var(--t-page) fixed!important;color:var(--t-ink)}
+:root{background:var(--t-soft)}
+#root .shell,#root .workspace{background:transparent!important}
+#root .card{background:var(--t-card-a);border-color:var(--t-line)}
+#root,#root input,#root select,#root textarea,#root button{color:inherit}
+#root input,#root select,#root textarea{color:var(--t-ink);background:var(--t-card);border-color:var(--t-line2)}
+#root input::placeholder,#root textarea::placeholder{color:var(--t-muted)}
+#root .topbar,#root .bottom-nav,#root .sidebar,.sheet{background:var(--t-glass);border-color:var(--t-line)}
+#root .btn.primary,#root .save-price{background:var(--t-btn)!important;border-color:transparent!important;color:var(--t-btn-ink)!important}
+#root .status-chips button.active{background:var(--t-chip);border-color:var(--t-chip);color:var(--t-chip-ink)}
+#root .timeline-bar{background:var(--t-tint)}
+#root .timeline-bar i{background:linear-gradient(90deg,var(--t-brand),var(--t-brand2))}
+#root .cs-active .cs-dot{background:var(--t-chip);border-color:var(--t-chip);color:var(--t-chip-ink);box-shadow:0 0 0 4px var(--t-tint)}
+#root .cs-dot{background:var(--t-card);color:var(--t-muted);border-color:var(--t-line2)}
+#root .cs-step.cs-done::before,#root .cs-step.cs-active::before{background:var(--t-brand)}
+#root .cs-label{color:var(--t-ink3)}#root .cs-active .cs-label{color:var(--t-ink)}
+
+/* Batch counters */
+#root .bc-total{background:var(--t-c-total)}#root .bc-mac{background:var(--t-c-mac)}#root .bc-mat{background:var(--t-c-mat)}#root .bc-ready{background:var(--t-c-ready)}#root .bc-hold{background:var(--t-c-hold)}
+#root .bc-counter strong{color:var(--t-ink)}#root .bc-counter span{color:var(--t-ink3)}
+#root .bc-counter.is-active{background:var(--t-card)}
+
+/* Theme picker */
+#root .theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+#root .theme-card{display:grid;gap:6px;text-align:left;padding:10px;border:2px solid var(--t-line);border-radius:14px;background:var(--t-soft);color:var(--t-ink);cursor:pointer;height:auto;min-height:0}
+#root .theme-card.is-selected{border-color:var(--t-brand);box-shadow:0 0 0 3px var(--t-tint)}
+#root .theme-swatches{display:flex;gap:4px}
+#root .theme-swatches i{flex:1;height:22px;border-radius:7px;border:1px solid #00000018;display:block}
+#root .theme-name{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px}
+#root .theme-name strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#root .theme-card small{font-size:11.5px;color:var(--t-ink3);line-height:1.3}
+@media (min-width:700px){#root .theme-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+#root .bottom-nav button{color:var(--t-ink3)}#root .bottom-nav button.active,#root .bottom-nav button[aria-current=page]{background:var(--t-tint);color:var(--t-ink)}
+
+/* Dark themes: keep the soft status boxes readable by restoring the light palette inside them */
+html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"]) :is(.user-settings-notice,.saved-formula-name>span,.backup-status,.backup-message,.access-badge.approved,.dashboard-metric-icon,.content-cost-summary,.remove-cost-row,.pricing-overview>div,.pricing-warnings p,.offline-pill,.sheet-link-icon,.kpis .stat,.material-rate,.costing-raw-cost,.cost-per-ml-answer,.material-feedback,.inventory-alert,.material-stock,.status-completed,.status-cancelled,.status-maturing,.status-maceration,.material-preview,.formula-result-hero>div,.formula-summary-highlights>div,.formula-summary-quantity-note,.cost-sheet-result,.bottling-math-total,.login-page,.formula-status,.inventory-stats .warn,.stock-row.low,.stat-icon,.inventory-stat.warn,.combobox-avatar,.top-rank,.costing-steps li.todo,.margin-badge,.profit-tile,.tier-warn,.pricing-notice,.perfume-total.primary,.structure-note,.install-status.ok,.save-status,.history-note,.record-tag,.banner-chip,.timeline-phase.is-ready,.stage-done-btn,.aging-pill,.bf-problems,.bd-notes){
+  --t-ink:#2f2d58;--t-ink2:#4d4a96;--t-ink3:#6a6690;--t-muted:#76729a;--t-brand:#8b93f2;--t-brand2:#b69af2;
+  --t-card:#ffffff;--t-soft:#fbf8ff;--t-tint:#efeaff;--t-line:#e8e2f5;--t-line2:#cfc8f0;
+  color:#2f2d58;
+}
+html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"]) .formula-library-hero{background:var(--t-tint)}
+html:is([data-theme="steel"],[data-theme="dusk"],[data-theme="aurora"],[data-theme="plum"]) .sheet-link-icon{color:#4d4a96}
