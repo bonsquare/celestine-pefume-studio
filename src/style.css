@@ -725,3 +725,9 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .overview-disclosure[open] summary::after{transform:rotate(-135deg) translateY(-1px)}
 .overview-disclosure summary:focus-visible{outline:2px solid #3457d5;outline-offset:2px}
 .overview-disclosure .overview-note{margin:.5rem 0 0}
+
+/* Current formula card: name only, details collapsed */
+.overview-disclosure{margin-top:.5rem;padding-top:0;border-top:0}
+.overview-disclosure>.overview-stats{margin-top:.7rem}
+.overview-disclosure[open]>summary{margin-bottom:0}
+.dashboard-formula-name+.overview-note{margin:.3rem 0 0}
