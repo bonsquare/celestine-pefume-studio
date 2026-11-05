@@ -25,4 +25,10 @@ export function batchTimeline(batch,today=localDate()){
   else if(matEnd){phase='Maturing';detail=`${maturation.daysLeft} day${maturation.daysLeft===1?'':'s'} left`}
   return {maceration,maturation,phase,detail,ready:Boolean(matEnd)&&maturation.state==='done'};
 }
+// Raw material cost of one bottle: the materials in the formula only (no labor, overhead, or packaging).
+export function rawMaterialPerBottle(batch){
+  const calc=batch.calculation||{},volume=num(calc.volume),size=num(calc.bottleSize);
+  if(volume>0&&size>0)return num(calc.ingredientCost)/volume*size;
+  return num(calc.bottles)>0?num(calc.ingredientCost)/num(calc.bottles):0;
+}
 export const batchWastage=batch=>Math.max(0,num(batch.expectedYield)-num(batch.actualYield));
