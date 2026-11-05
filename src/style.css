@@ -823,3 +823,14 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .install-status.ok{background:#e6f7ee;color:#136b3f!important}
 .install-steps{margin:0;padding-left:1.2rem;display:grid;gap:.3rem;font-size:.82rem;color:#4a5778}
 .install-foot{font-size:.74rem!important;color:#7a859c!important}
+
+/* Saved vs current price */
+.save-status{margin:0;padding:.5rem .7rem;border-radius:10px;font-size:.78rem;line-height:1.4}
+.save-status.warn{background:#fff7e3;border:1px solid #f1d9a8;color:#8a5a00}
+.save-status.ok{background:#e6f7ee;border:1px solid #bfe6d1;color:#136b3f}
+.history-note{margin:0 16px .6rem;padding:.5rem .7rem;border-radius:10px;background:#fff7e3;border:1px solid #f1d9a8;color:#8a5a00;font-size:.78rem;line-height:1.45}
+.record-tag{margin-left:6px;padding:1px 8px;border-radius:999px;background:#e8edff;color:#3f55c7;font-size:.6rem;font-style:normal;font-weight:800;letter-spacing:.04em;text-transform:uppercase;vertical-align:middle}
+.record-tag.warn{background:#fff0c9;color:#8a5a00}
+.record-tags{display:flex;flex-wrap:wrap;gap:5px;margin:3px 0 2px}
+.record-tags .record-tag{margin-left:0}
+#root .pricing-history-card strong{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
