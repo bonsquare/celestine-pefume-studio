@@ -351,3 +351,8 @@ body{background:radial-gradient(circle at 12% 4%,#e9ecff 0,transparent 27rem),ra
   .status-chips button{flex-direction:column;gap:.15rem;min-height:46px;padding:.35rem .15rem;font-size:.68rem;border-radius:14px}
   .status-chips button small{min-width:20px;padding:0 6px;font-size:.62rem;line-height:1.5}
 }
+
+/* Scent name and inspired-by */
+.formula-summary-scent{display:grid;gap:2px;margin:6px 0 0;font-size:.82rem;color:#46526f}
+.formula-summary-scent b{font-weight:750;color:#293b75}
+.saved-formula-scent{display:block;color:#3f55c7!important;font-weight:650}
