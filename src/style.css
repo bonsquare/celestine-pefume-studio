@@ -1063,3 +1063,17 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root .formula-library .status-chips button small{min-width:16px;font-size:.62rem}
 
 #root .formula-library .status-chips button{flex-direction:column;min-height:42px;padding:.25rem .1rem;gap:.1rem;border-radius:12px}
+
+/* Status chips sit above Search and filter; long names are cut with an ellipsis everywhere */
+#root .library-chips{padding:0 1.1rem}
+#root .library-chips .status-chips{grid-column:auto}
+#root .formula-library-tools{padding-top:.2rem}
+#root .saved-formula-name>div>strong,#root .saved-formula-scent,#root .saved-formula-name small,
+#root .dashboard-formula-name,#root .tracker-name strong,#root .tracker-name small,#root .tracker-phase small,
+#root .bc-summary-top>strong,#root .production-record-head strong,#root .production-record-head small,
+#root .bd-title>strong,#root .top-formula-name strong,#root .top-formula-name small{display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#root .saved-formula-name>div>strong{display:flex;align-items:center;gap:.35rem}
+#root .tracker-name,#root .tracker-phase,#root .saved-formula-name>div{min-width:0}
+
+#root .formula-name-text{min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#root .saved-formula-name>div>strong>*:not(.formula-name-text){flex:none}
