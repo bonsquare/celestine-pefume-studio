@@ -915,3 +915,7 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root .stage-done-btn{height:26px;padding:0 10px;font-size:12px;border-radius:8px;border:1px solid #c9cff5;background:#fff;color:#2f3a8f;cursor:pointer}
 #root .stage-done .stage-done-btn{background:#e3f7ea;border-color:#a8e0bf;color:#1f7a45}
 #root .stage-note{width:100%;font-size:13px}
+
+#root .batch-delete-confirm{display:flex;align-items:center;gap:6px;margin-left:auto}
+#root .batch-delete-confirm small{font-size:12px;color:#6b7194}
+#root .batch-delete-confirm .danger{background:#e5484d;border-color:#e5484d;color:#fff}
