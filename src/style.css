@@ -1093,3 +1093,7 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root .cs-active .cs-label{color:#3457d5}
 #root .cs-step:not(:disabled):hover .cs-dot{border-color:#3457d5}
 #root .cost-sheet-section-title{display:flex;align-items:center;gap:8px}
+
+.sheet .bc-sep{display:flex;align-items:center;gap:8px;margin:10px 0 6px;font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#6b7194}
+.sheet .bc-sep::after{content:"";flex:1;height:1px;background:#dfe3f2}
+.sheet .sheet-group{display:block}

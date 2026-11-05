@@ -1,7 +1,7 @@
 import {describe,expect,it} from 'vitest';
 import {pageFromSearch} from './pwa';
 
-const names=['Dashboard','Formulation','Costing','Batches','Inventory of Raw Materials','Raw Material Library','Settings'];
+const names=['Dashboard','Formulation','Costing','Batches','Inventory of Raw Materials','Raw Material Registration','Settings'];
 
 describe('pageFromSearch',()=>{
   it('opens the page named in the link',()=>{
