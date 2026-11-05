@@ -680,3 +680,10 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .pricing-save-bar{display:grid;gap:.5rem;margin:.9rem 16px 1rem}
 .pricing-save-bar .save-price{width:100%;justify-content:center;min-height:40px}
 .pricing-save-bar .pricing-notice{margin:0}
+
+/* Dashboard banner: formula picker */
+.hero-picker{display:block;position:relative;margin:2px 0 4px}
+.hero-picker>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero-picker select{width:100%;min-height:40px;padding:.3rem 2rem .3rem .2rem;border:0;border-bottom:2px solid #ffffff55;border-radius:0;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right .2rem center;color:#fff;font:inherit;font-size:1.35rem;font-weight:800;appearance:none;-webkit-appearance:none;cursor:pointer;text-overflow:ellipsis}
+.hero-picker select:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.hero-picker select option{color:#202944;font-size:1rem;font-weight:600;background:#fff}
