@@ -293,3 +293,36 @@ body{background:radial-gradient(circle at 12% 4%,#e9ecff 0,transparent 27rem),ra
   .summary-print-button{display:none!important}
   @page{margin:14mm}
 }
+
+/* Formula status, notes, trials and versions */
+.formula-status{display:inline-block;margin-left:6px;padding:2px 9px;border-radius:999px;font-size:.68rem;font-weight:750;letter-spacing:.02em;background:#eef1f9;color:#46526f;vertical-align:middle}
+.formula-status.status-testing{background:#fff3d6;color:#8a5a00}
+.formula-status.status-approved{background:#dcf5e8;color:#136b3f}
+.formula-status.status-retired{background:#ececec;color:#6b6b6b}
+.formula-notes-field{margin-top:12px;display:grid}
+.formula-notes-field textarea,.trial-note textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid #cdd6e8;border-radius:12px;background:#fff;color:inherit;resize:vertical}
+.formula-notes-panel{display:grid;gap:14px;margin-top:16px}
+.formula-notes-block{padding:14px;border:1px solid #dfe6f3;border-radius:16px;background:#fff}
+.formula-notes-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.formula-notes-head h4{margin:0}
+.formula-details{display:grid;gap:8px;margin:0}
+.formula-details dt{font-size:.7rem;font-weight:750;text-transform:uppercase;letter-spacing:.05em;color:#7a859c}
+.formula-details dd{margin:0}
+.formula-notes-text{white-space:pre-wrap}
+.trial-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:end}
+.trial-form .trial-note{grid-column:1/-1}
+.trial-form .btn{grid-column:1/-1}
+.trial-list,.version-list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.trial-list li{position:relative;padding:10px 40px 10px 12px;border-radius:12px;background:#f6f8ff}
+.trial-list li p{margin:4px 0 0;white-space:pre-wrap}
+.trial-list .icon-button{position:absolute;top:6px;right:6px}
+.trial-stars{margin-left:10px;color:#c98a00;letter-spacing:1px}
+.version-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;padding:10px 12px;border:1px solid #dfe6f3;border-radius:12px;background:#f9faff;font:inherit;color:inherit;cursor:pointer}
+.version-toggle small{display:block;color:#7a859c}
+.version-toggle em{font-style:normal;font-size:.78rem;color:#46526f}
+.version-diff{width:100%;margin-top:8px;border-collapse:collapse;font-size:.86rem}
+.version-diff th,.version-diff td{padding:6px 8px;text-align:left;border-bottom:1px solid #eef1f9}
+.version-diff .diff-changed td:last-child,.version-diff .diff-added td:last-child{color:#136b3f;font-weight:700}
+.version-diff .diff-removed td,.version-diff .diff-removed td:last-child{color:#a12a2a}
+.version-diff .diff-same td{color:#7a859c}
+@media print{.formula-notes-panel{display:none!important}}
