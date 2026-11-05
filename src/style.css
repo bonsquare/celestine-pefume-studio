@@ -367,3 +367,5 @@ body{background:radial-gradient(circle at 12% 4%,#e9ecff 0,transparent 27rem),ra
 .formula-notes-field textarea{min-height:84px;box-sizing:border-box}
 @media(min-width:720px){.formula-notes-trio{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:380px){.formula-meta-grid{grid-template-columns:minmax(0,1fr)}}
+
+.material-scent{color:#3f55c7!important;font-weight:650}

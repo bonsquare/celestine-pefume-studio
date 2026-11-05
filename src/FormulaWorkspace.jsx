@@ -39,7 +39,17 @@ function FormulaEditor({initial,data,onSave,onClose}){
   const calculation=useMemo(()=>calculateFormulaDraft(draft,data),[draft,data]);
   const change=patch=>{setDraft(d=>({...d,...patch}));setGenerated(false);setError('')};
   const meta=patch=>setDraft(d=>({...d,...patch}));
-  const rowChange=(id,patch)=>change({materials:draft.materials.map(row=>row.id===id?{...row,...patch}:row)});
+  // Picking a fragrance oil fills Inspired by and Scent name from the raw material, unless you typed something different.
+  const rowChange=(id,patch)=>{
+    const extra={},row=draft.materials.find(r=>r.id===id);
+    if(row?.role==='oil'&&patch.materialId!==undefined&&patch.materialId!==row.materialId){
+      const next=data.ingredients.find(m=>m.id===patch.materialId),prev=data.ingredients.find(m=>m.id===row.materialId);
+      const inspired=m=>m?(m.inspiredBy||m.name||''):'',scent=m=>m?.scentName||'';
+      if(!draft.inspiredBy||draft.inspiredBy===inspired(prev))extra.inspiredBy=inspired(next);
+      if(!draft.scentName||draft.scentName===scent(prev))extra.scentName=scent(next);
+    }
+    change({...extra,materials:draft.materials.map(r=>r.id===id?{...r,...patch}:r)});
+  };
   const add=role=>change({materials:[...draft.materials,{id:uid(),materialId:'',role,percentage:0}]});
   const generate=()=>{if(calculation.errors.length){setError(calculation.errors[0]);return}setError('');setGenerated(true);requestAnimationFrame(()=>summary.current?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'}))};
   useEffect(()=>{const previous=document.activeElement,priorOverflow=document.body.style.overflow;document.body.style.overflow='hidden';nameInput.current?.focus();const key=e=>{if(e.key==='Escape'){e.preventDefault();onClose()}if(e.key==='Tab'){const controls=[...panel.current.querySelectorAll('input,select,textarea,button')].filter(x=>!x.disabled);const first=controls[0],last=controls[controls.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}};document.addEventListener('keydown',key);return()=>{document.removeEventListener('keydown',key);document.body.style.overflow=priorOverflow;previous?.focus?.()}},[]);

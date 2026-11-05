@@ -12,8 +12,8 @@ export const toCsv=(headers,rows)=>[headers,...rows].map(row=>row.map(csvCell).j
 const round=(value,places=2)=>Number(num(value).toFixed(places));
 
 export const materialsCsv=data=>toCsv(
-  ['Name','Category','Make','Supplier','Purchase quantity','Unit','Purchase price','Cost per unit','Density (g/mL)','Stock on hand','Low-stock level'],
-  (data.ingredients||[]).map(item=>[item.name,item.category,item.make,item.supplier,num(item.contentQuantity),unitLabel(materialUnit(item)),num(item.purchasePrice),round(materialRate(item),6),num(item.density),num(item.stockQuantity),num(item.reorderLevel)])
+  ['Name','Category','Make','Supplier','Purchase quantity','Unit','Purchase price','Cost per unit','Density (g/mL)','Stock on hand','Low-stock level','Scent name','Inspired by'],
+  (data.ingredients||[]).map(item=>[item.name,item.category,item.make,item.supplier,num(item.contentQuantity),unitLabel(materialUnit(item)),num(item.purchasePrice),round(materialRate(item),6),num(item.density),num(item.stockQuantity),num(item.reorderLevel),item.scentName,item.inspiredBy])
 );
 
 export const batchesCsv=data=>toCsv(
