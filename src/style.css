@@ -369,3 +369,7 @@ body{background:radial-gradient(circle at 12% 4%,#e9ecff 0,transparent 27rem),ra
 @media(max-width:380px){.formula-meta-grid{grid-template-columns:minmax(0,1fr)}}
 
 .material-scent{color:#3f55c7!important;font-weight:650}
+
+/* Number fields: no spinner arrows (the wheel is also disabled in main.jsx) */
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
