@@ -731,3 +731,13 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .overview-disclosure>.overview-stats{margin-top:.7rem}
 .overview-disclosure[open]>summary{margin-bottom:0}
 .dashboard-formula-name+.overview-note{margin:.3rem 0 0}
+
+/* Dashboard: one card per formula */
+.formula-overview-list{display:grid;gap:.5rem}
+.formula-overview-card{padding:.6rem .75rem}
+.formula-overview-card.current{border-color:#b9c6e6;box-shadow:0 0 0 1px #b9c6e6 inset}
+.formula-overview-head{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.formula-overview-title{display:flex;align-items:center;gap:.5rem;min-width:0}
+.formula-overview-title .dashboard-formula-name{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.current-tag{flex:none;padding:1px 8px;border-radius:999px;background:#e8edff;color:#3f55c7;font-size:.62rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.formula-overview-more{justify-self:center}
