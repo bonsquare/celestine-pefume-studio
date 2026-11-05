@@ -793,3 +793,13 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 #root .bottling-math strong{font-size:.9rem;line-height:1.2;color:#293b75;white-space:nowrap}
 #root .bottling-math>div.bottling-math-total strong{color:#136b3f}
 #root .bottling-math small{display:none}
+
+/* Saleable bottles: label left, box right, hint on one line */
+#root .pricing-toolbar{display:block;padding:0 16px .6rem}
+#root .pricing-quantity{display:grid;gap:.35rem;width:100%}
+#root .pricing-quantity>.field{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:.75rem}
+#root .pricing-quantity>.field>span:first-child{font-weight:700;color:#293b75}
+#root .pricing-quantity>.field .input-wrap{width:130px;flex:none}
+#root .pricing-quantity .field-hint{margin:0;width:100%}
+#root .pricing-quantity{max-width:none;flex:1 1 auto}
+#root .pricing-quantity>.field{max-width:none;width:100%}
