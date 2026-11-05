@@ -68,9 +68,11 @@ function FormulaSummaryWindow({formula,data,onClose,onEdit,onDelete,onUpdate}){c
 
 function MaterialRow({row,options,onChange,onRemove}){return <div className="formula-material-row"><Field label="Saved raw material"><select value={row.materialId} onChange={e=>onChange({materialId:e.target.value})}><option value="">Choose from library</option>{options.map(m=><option key={m.id} value={m.id}>{[m.name,m.make,m.supplier].filter(Boolean).join(' · ')}</option>)}</select></Field><Field label="Percentage" unit="%"><Input value={row.percentage} max="100" onChange={v=>onChange({percentage:v})}/></Field><button className="icon-button danger" aria-label="Remove material" onClick={onRemove}><Trash2 size={18}/></button></div>}
 
-export default function FormulaWorkspace({data,onSave,onSelect,onDelete,openId,onOpened}){
+export default function FormulaWorkspace({data,onSave,onSelect,onDelete,openId,onOpened,openNew,onOpenedNew}){
   const [editor,setEditor]=useState(null),[viewer,setViewer]=useState(null),[query,setQuery]=useState(''),[sort,setSort]=useState('recent'),[statusFilter,setStatusFilter]=useState('');
   const liveViewer=viewer&&(data.formulas.find(f=>f.id===viewer.id)||viewer);
+  // The Dashboard's "New formula" button opens a blank editor straight away.
+  useEffect(()=>{if(!openNew)return;setEditor(emptyFormulaDraft());onOpenedNew?.()},[openNew]);
   // Opened from the dashboard: show that formula's summary straight away.
   useEffect(()=>{if(!openId)return;const target=data.formulas.find(f=>f.id===openId);if(target)setViewer(target);onOpened?.()},[openId]);
   const all=[...data.formulas],saved=all.filter(formula=>[formula.name,formula.inspiredBy].filter(Boolean).join(' ').toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())&&(!statusFilter||formulaStatus(formula)===statusFilter)).sort((a,b)=>sort==='name'?a.name.localeCompare(b.name):(b.updatedAt||'').localeCompare(a.updatedAt||''));

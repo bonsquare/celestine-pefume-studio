@@ -1,5 +1,36 @@
-import {num} from './logic';
-import {calculatePricingTiers} from './pricing';
+import {calculate,num} from './logic';
+import {calculatePricingTiers,defaultPricingTiers} from './pricing';
+import {stockRows} from './stock';
+
+const activeStatuses=['Planned','Mixing','Maturing','Bottling'];
+const localDate=date=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+
+// What needs doing, for the Dashboard banner. Every number is a count of things to look at.
+//  lowStock: materials or supplies at or under their low-stock level
+//  ready: batches in Maturing whose maturation date has arrived
+//  needBottle: formulas with no bottle size chosen in Costing
+//  unsavedPrice: formulas whose current prices are not saved (or differ from the saved price)
+export function dashboardAlerts(data,now=new Date()){
+  const formulas=data?.formulas||[],batches=data?.batches||[],today=localDate(now);
+  let needBottle=0,unsavedPrice=0;
+  for(const formula of formulas){
+    const calc=calculate(formula,data),summary=formulaOverview(formula,calc);
+    if(!summary.hasBottle){needBottle+=1;continue}
+    const tiers=calculatePricingTiers(calc.unitBottleCost,formula.pricingQuantity??calc.bottles,formula.pricingTiers?.length?formula.pricingTiers:defaultPricingTiers());
+    const saved=formula.pricingHistory?.at(-1);
+    const matches=Boolean(saved)&&tiers.every((tier,index)=>Math.abs(num(tier.result.finalPrice)-num(saved.tiers?.[index]?.result?.finalPrice))<0.005);
+    if(!matches)unsavedPrice+=1;
+  }
+  return {
+    formulas:formulas.length,
+    lowStock:data?stockRows(data).filter(row=>row.low).length:0,
+    ready:batches.filter(batch=>batch.status==='Maturing'&&batch.maturationDate&&batch.maturationDate<=today).length,
+    inProgress:batches.filter(batch=>activeStatuses.includes(batch.status)).length,
+    needBottle,
+    unsavedPrice
+  };
+}
+export const attentionCount=alerts=>alerts.lowStock+alerts.ready+alerts.needBottle+alerts.unsavedPrice;
 
 // The most recently updated formula (ties keep the earlier one in the list).
 export const latestFormula=formulas=>(formulas||[]).reduce((best,formula)=>!best||(formula.updatedAt||'')>(best.updatedAt||'')?formula:best,undefined);

@@ -842,3 +842,13 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 
 /* Saved price date: one horizontal line across the bottom of the record */
 #root .pricing-history-card .record-saved{grid-column:1/-1;margin:.1rem 0 0;padding-top:.45rem;border-top:1px dashed #e0e6f4;font-size:.72rem;color:#61708b;white-space:nowrap}
+
+/* Dashboard banner: greeting, what needs attention, quick actions */
+.dashboard-banner .dashboard-hero-copy h2{margin:.1rem 0 .15rem}
+.banner-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem}
+.banner-chip{display:inline-flex;align-items:center;gap:.3rem;min-height:30px;padding:.2rem .7rem;border:1px solid #ffffff55;border-radius:999px;background:#ffffff1f;color:#fff;font:inherit;font-size:.74rem;font-weight:650;cursor:pointer}
+.banner-chip strong{font-size:.82rem;font-weight:800}
+.banner-chip.warn{background:#ffd9a3;border-color:#ffd9a3;color:#5c3a00}
+.banner-chip.ok{background:#c9f3dc;border-color:#c9f3dc;color:#0e5b35;cursor:default}
+button.banner-chip:hover{filter:brightness(1.06)}
+button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
