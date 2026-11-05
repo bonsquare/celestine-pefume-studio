@@ -548,3 +548,25 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 .top-formula-value{display:grid;gap:1px;text-align:right}
 .top-formula-value strong{color:#136b3f}
 @media(max-width:480px){.top-formula-list button{grid-template-columns:auto minmax(0,1fr)}.top-formula-value{grid-column:2;text-align:left}}
+
+/* Costing summary */
+.costing-summary{display:grid;gap:12px}
+.costing-summary-intro{margin:0;font-size:.82rem;line-height:1.5;color:#4a5778}
+.costing-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.costing-steps li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.75rem;align-items:center;padding:.7rem .8rem;border:1px solid #dfe6f3;border-radius:14px;background:#fff}
+.costing-steps li.total{background:#f4f7ff;border-color:#cdd8f2}
+.costing-steps li.final{background:linear-gradient(135deg,#eef2ff,#f1ecff);border-color:#b9c6e6}
+.costing-steps li.todo{background:#fff8ec;border-color:#f1d9a8}
+.costing-step-number{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e8edff;color:#3f55c7;font-size:.78rem;font-weight:800}
+.costing-steps li.todo .costing-step-number{background:#fde7b8;color:#8a5a00}
+.costing-steps li.final .costing-step-number{background:#3457d5;color:#fff}
+.costing-step-copy{display:grid;gap:2px;min-width:0}
+.costing-step-copy strong{font-size:.9rem;color:#293b75}
+.costing-step-copy small{font-size:.74rem;line-height:1.4;color:#61708b}
+.costing-step-value{display:flex;align-items:center;gap:.6rem;justify-content:flex-end;flex-wrap:wrap}
+.costing-step-value>strong{font-size:1rem;color:#293b75;white-space:nowrap}
+.costing-steps li.final .costing-step-value>strong{font-size:1.15rem;color:#2544bd}
+@media(max-width:560px){
+  .costing-steps li{grid-template-columns:auto minmax(0,1fr)}
+  .costing-step-value{grid-column:2;justify-content:space-between}
+}
