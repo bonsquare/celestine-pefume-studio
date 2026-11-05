@@ -1044,3 +1044,9 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root .production-batches .bc-counters{padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #e3e6f3}
 #root .production-batches .bc-filters{padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #e3e6f3}
 #root .production-batches .card-head{padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #e3e6f3}
+
+/* Named separators */
+#root .production-batches .bc-counters,#root .production-batches .bc-filters,#root .production-batches .card-head{border-bottom:0;padding-bottom:0}
+#root .production-batches .card-head{margin-bottom:10px}
+#root .bc-sep{display:flex;align-items:center;gap:8px;margin:12px 0 8px;font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#6b7194}
+#root .bc-sep::after{content:"";flex:1;height:1px;background:#dfe3f2}

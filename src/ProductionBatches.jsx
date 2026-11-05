@@ -61,7 +61,7 @@ export default function ProductionBatches({data,by='Local workspace',onChange,on
 
   return <section className="card production-batches">
     <div className="card-head"><div><p className="eyebrow">PRODUCTION</p><h2>Production batches</h2></div><button type="button" className="btn primary batch-add" disabled={!data.formulas.length} onClick={()=>setView({mode:'new'})}><Plus size={15}/> Add New Batch</button></div>
-    <div className="bc-counters">
+    <p className="bc-sep">Overview</p><div className="bc-counters">
       <Counter label="Total" title="Total batches" value={counts.total} tone="total" active={stage==='active'} onClick={()=>setStage('active')}/>
       <Counter label="Macerating" value={counts.macerating} tone="mac" active={stage==='Macerating'} onClick={()=>setStage(stage==='Macerating'?'active':'Macerating')}/>
       <Counter label="Maturing" value={counts.maturing} tone="mat" active={stage==='Maturing'} onClick={()=>setStage(stage==='Maturing'?'active':'Maturing')}/>
@@ -69,12 +69,12 @@ export default function ProductionBatches({data,by='Local workspace',onChange,on
       <Counter label="On hold" value={counts.onHold} tone="hold" active={stage==='On Hold'} onClick={()=>setStage(stage==='On Hold'?'active':'On Hold')}/>
     </div>
     {!data.formulas.length&&<p className="empty">Create a formulation first, then add a batch for it.</p>}
-    {data.batches.length>0&&<div className="bc-filters"><span className="bc-filter-note">{shown.length} of {data.batches.length} batch{data.batches.length===1?'':'es'}{stage!=='active'||scent!=='all'||query?' · filtered':''}</span>
+    {data.batches.length>0&&<p className="bc-sep">Search and filter</p>}{data.batches.length>0&&<div className="bc-filters"><span className="bc-filter-note">{shown.length} of {data.batches.length} batch{data.batches.length===1?'':'es'}{stage!=='active'||scent!=='all'||query?' · filtered':''}</span>
       <label className="bc-search"><Search size={15} aria-hidden="true"/><input type="search" placeholder="Search batch number or scent" value={query} onChange={event=>setQuery(event.target.value)}/></label>
       <select aria-label="Scent" value={names.includes(scent)?scent:'all'} onChange={event=>setScent(event.target.value)}><option value="all">All scents</option>{names.map(name=><option key={name} value={name}>{name}</option>)}</select>
       <select aria-label="Aging status" value={stage} onChange={event=>setStage(event.target.value)}><option value="active">All active</option><option value="all">Everything</option>{agingStatuses.map(item=><option key={item} value={item}>{item}</option>)}</select>
     </div>}
-    {shown.length?<div className="production-list">{shown.map(({batch,aging})=>{const isOpen=open.has(batch.id);return <article className={`production-record bc-row${isOpen?' is-open':''}`} key={batch.id}>
+    <p className="bc-sep">Batch list{shown.length?` (${shown.length})`:''}</p>{shown.length?<div className="production-list">{shown.map(({batch,aging})=>{const isOpen=open.has(batch.id);return <article className={`production-record bc-row${isOpen?' is-open':''}`} key={batch.id}>
       <button type="button" className="bc-summary" aria-expanded={isOpen} onClick={()=>toggle(batch.id)}>
         <span className="bc-summary-top"><strong>{batch.name}</strong><span className={`aging-pill ${statusClass(aging.status)}`}>{aging.status}</span><ChevronDown size={16} className="bc-chevron" aria-hidden="true"/></span>
         <AgingBars view={aging} compact parts="overall"/>
