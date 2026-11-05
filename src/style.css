@@ -665,3 +665,13 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
   #root .card{padding:.55rem .65rem}
   #root .inventory-head{gap:.5rem}
 }
+
+/* Costing: Back / Next and Save Price */
+.step-nav{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-top:.2rem}
+.step-nav .btn{display:inline-flex;align-items:center;gap:6px}
+.step-nav .btn.primary:only-child,.step-nav>span+.btn{margin-left:auto}
+.save-price{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.pricing-notice{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin:.5rem 16px 0;padding:.55rem .75rem;border-radius:12px;font-size:.8rem;line-height:1.4}
+.pricing-notice.ok{background:#e6f7ee;border:1px solid #bfe6d1;color:#136b3f}
+.pricing-notice.error{background:#fff1ee;border:1px solid #f3cfc5;color:#a12a2a}
+.pricing-notice button{border:0;background:none;color:#2544bd;font:inherit;font-weight:700;text-decoration:underline;cursor:pointer;padding:0}
