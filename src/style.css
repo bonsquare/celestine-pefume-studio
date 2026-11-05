@@ -909,3 +909,9 @@ button.banner-chip:focus-visible{outline:2px solid #fff;outline-offset:2px}
 #root .tracker-phase strong{color:#2f3a8f;font-size:13px}
 #root .tracker-phase.is-ready strong{color:#1f7a45}
 #root .batch-tracker .timeline-bar{grid-column:1/-1}
+
+#root .timeline-stage-head{gap:8px}
+#root .timeline-stage-head small{margin-left:auto}
+#root .stage-done-btn{height:26px;padding:0 10px;font-size:12px;border-radius:8px;border:1px solid #c9cff5;background:#fff;color:#2f3a8f;cursor:pointer}
+#root .stage-done .stage-done-btn{background:#e3f7ea;border-color:#a8e0bf;color:#1f7a45}
+#root .stage-note{width:100%;font-size:13px}

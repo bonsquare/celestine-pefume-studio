@@ -20,3 +20,11 @@ describe('batch timeline',()=>{
  });
  it('asks for dates when none are set',()=>{expect(batchTimeline({date:'2026-11-05'},'2026-11-06').phase).toBe('Set dates')});
 });
+
+describe('marking a stage done',()=>{
+ it('overrides the dates and makes the batch ready',()=>{
+  const b={date:'2026-11-05',macerationDate:'2026-11-19',maturationDate:'2026-12-05',macerationDoneOn:'2026-11-12'};
+  const a=batchTimeline(b,'2026-11-13');expect(a.maceration.state).toBe('done');expect(a.phase).toBe('Maturing');
+  const c=batchTimeline({...b,maturationDoneOn:'2026-11-20'},'2026-11-21');expect(c.ready).toBe(true);expect(c.detail).toBe('since 2026-11-20');
+ });
+});
